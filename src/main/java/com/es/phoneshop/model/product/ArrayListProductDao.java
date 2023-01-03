@@ -19,12 +19,12 @@ public class ArrayListProductDao implements ProductDao {
     }
 
     @Override
-    public Product getProduct(Long id) {
+    public Product getProduct(Long id) throws ProductNotFoundException {
         lock.readLock().lock();
         Product product=products.stream().
                 filter(product1 -> id.equals(product1.getId())).
                 findAny().
-                orElse(null);
+                orElseThrow(ProductNotFoundException::new);
         lock.readLock().unlock();
         return product;
     }
