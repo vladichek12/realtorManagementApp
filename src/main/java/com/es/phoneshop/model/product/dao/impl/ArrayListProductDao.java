@@ -29,7 +29,7 @@ public class ArrayListProductDao implements ProductDao {
         Product product = products.stream().
                 filter(currProduct -> id.equals(currProduct.getId())).
                 findAny().
-                orElseThrow(()->new ProductNotFoundException("No such product with given id"));
+                orElseThrow(() -> new ProductNotFoundException(String.format("No such product with given id:%d", id)));
         lock.readLock().unlock();
         return product;
     }
@@ -51,11 +51,11 @@ public class ArrayListProductDao implements ProductDao {
                     filter(currProduct -> currProduct.getId().equals(product.getId())).
                     findAny();
             if (productToAdd.isEmpty()) {
-                addNewProduct(product,products);
+                addNewProduct(product, products);
             } else
                 products.set(products.indexOf(productToAdd.get()), product);
         } else {
-            addNewProduct(product,products);
+            addNewProduct(product, products);
         }
         lock.writeLock().unlock();
     }
@@ -65,8 +65,8 @@ public class ArrayListProductDao implements ProductDao {
         if (id == null)
             throw new IllegalArgumentException("Parameter id is null");
         lock.writeLock().lock();
-        if(!products.removeIf(product -> id.equals(product.getId())))
-            throw new ProductNotFoundException("No element was deleted");
+        if (!products.removeIf(product -> id.equals(product.getId())))
+            throw new ProductNotFoundException(String.format("Cannot delete product with given id:%d", id));
         lock.writeLock().unlock();
     }
 
@@ -88,8 +88,7 @@ public class ArrayListProductDao implements ProductDao {
         save(new Product("simsxg75", "Siemens SXG75", new BigDecimal(150), usd, 40, "https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/manufacturer/Siemens/Siemens%20SXG75.jpg"));
     }
 
-    private void addNewProduct(Product product,List<Product>products)
-    {
+    private void addNewProduct(Product product, List<Product> products) {
         product.setId(currentMaxId++);
         products.add(product);
     }
