@@ -5,10 +5,7 @@ import com.es.phoneshop.model.product.entity.Product;
 import com.es.phoneshop.model.product.exception.ProductNotFoundException;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.stream.Collectors;
@@ -27,21 +24,20 @@ public class ArrayListProductDao implements ProductDao {
     @Override
     public Product getProduct(Long id) throws ProductNotFoundException {
         if (id == null)
-            throw new ProductNotFoundException("Parameter id is null");
+            throw new IllegalArgumentException("Parameter id is null");
         lock.readLock().lock();
         Product product = products.stream().
                 filter(currProduct -> id.equals(currProduct.getId())).
                 findAny().
-                orElseThrow(ProductNotFoundException::new);
+                orElseThrow(()->new ProductNotFoundException("No such product with given id"));
         lock.readLock().unlock();
         return product;
     }
 
     @Override
     public synchronized List<Product> findProducts() {
-        if (products.isEmpty())
-            return products;
         return products.stream().
+                filter(Objects::nonNull).
                 filter(product -> product.getPrice() != null).
                 filter(product -> product.getStock() > 0).
                 collect(Collectors.toList());
@@ -52,16 +48,14 @@ public class ArrayListProductDao implements ProductDao {
         lock.writeLock().lock();
         if (product.getId() != null) {
             Optional<Product> productToAdd = products.stream().
-                    filter(product1 -> product1.getId().equals(product.getId())).
+                    filter(currProduct -> currProduct.getId().equals(product.getId())).
                     findAny();
             if (productToAdd.isEmpty()) {
-                product.setId(currentMaxId++);
-                products.add(product);
+                addNewProduct(product,products);
             } else
                 products.set(products.indexOf(productToAdd.get()), product);
         } else {
-            product.setId(currentMaxId++);
-            products.add(product);
+            addNewProduct(product,products);
         }
         lock.writeLock().unlock();
     }
@@ -69,9 +63,10 @@ public class ArrayListProductDao implements ProductDao {
     @Override
     public void delete(Long id) {
         if (id == null)
-            throw new ProductNotFoundException("Parameter id is null");
+            throw new IllegalArgumentException("Parameter id is null");
         lock.writeLock().lock();
-        products.removeIf(product -> id.equals(product.getId()));
+        if(!products.removeIf(product -> id.equals(product.getId())))
+            throw new ProductNotFoundException("No element was deleted");
         lock.writeLock().unlock();
     }
 
@@ -91,5 +86,11 @@ public class ArrayListProductDao implements ProductDao {
         save(new Product("simc56", "Siemens C56", new BigDecimal(70), usd, 20, "https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/manufacturer/Siemens/Siemens%20C56.jpg"));
         save(new Product("simc61", "Siemens C61", new BigDecimal(80), usd, 30, "https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/manufacturer/Siemens/Siemens%20C61.jpg"));
         save(new Product("simsxg75", "Siemens SXG75", new BigDecimal(150), usd, 40, "https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/manufacturer/Siemens/Siemens%20SXG75.jpg"));
+    }
+
+    private void addNewProduct(Product product,List<Product>products)
+    {
+        product.setId(currentMaxId++);
+        products.add(product);
     }
 }
