@@ -26,18 +26,27 @@ public class ArrayListProductDao implements ProductDao {
         if (id == null)
             throw new IllegalArgumentException("Parameter id is null");
         lock.readLock().lock();
-        Product product = products.stream().
-                filter(currProduct -> id.equals(currProduct.getId())).
-                findAny().
-                orElseThrow(() -> new ProductNotFoundException(String.format("No such product with given id:%d", id)));
-        lock.readLock().unlock();
-        return product;
+        try {
+            Product product = products.stream().
+                    filter(currProduct -> id.equals(currProduct.getId())).
+                    findAny().
+                    orElseThrow(() -> new ProductNotFoundException(String.format("No such product with given id:%d", id)));
+            return product;
+        } finally {
+            lock.readLock().unlock();
+        }
     }
 
     @Override
-    public synchronized List<Product> findProducts() {
+    public synchronized List<Product> findProducts(String query) {
         return products.stream().
                 filter(Objects::nonNull).
+                filter(product -> query == null || query.isEmpty() || containsAnyWordFrom(query, product.getDescription())).
+                sorted((p1, p2) -> {
+                    int firstProductMatches = numberOfWordsMatch(query, p1.getDescription());
+                    int secondProductMatches = numberOfWordsMatch(query, p2.getDescription());
+                    return secondProductMatches - firstProductMatches;
+                }).
                 filter(product -> product.getPrice() != null).
                 filter(product -> product.getStock() > 0).
                 collect(Collectors.toList());
@@ -46,18 +55,21 @@ public class ArrayListProductDao implements ProductDao {
     @Override
     public void save(Product product) {
         lock.writeLock().lock();
-        if (product.getId() != null) {
-            Optional<Product> productToAdd = products.stream().
-                    filter(currProduct -> currProduct.getId().equals(product.getId())).
-                    findAny();
-            if (productToAdd.isEmpty()) {
+        try {
+            if (product.getId() != null) {
+                Optional<Product> productToAdd = products.stream().
+                        filter(currProduct -> currProduct.getId().equals(product.getId())).
+                        findAny();
+                if (productToAdd.isEmpty()) {
+                    addNewProduct(product, products);
+                } else
+                    products.set(products.indexOf(productToAdd.get()), product);
+            } else {
                 addNewProduct(product, products);
-            } else
-                products.set(products.indexOf(productToAdd.get()), product);
-        } else {
-            addNewProduct(product, products);
+            }
+        } finally {
+            lock.writeLock().unlock();
         }
-        lock.writeLock().unlock();
     }
 
     @Override
@@ -65,9 +77,12 @@ public class ArrayListProductDao implements ProductDao {
         if (id == null)
             throw new IllegalArgumentException("Parameter id is null");
         lock.writeLock().lock();
-        if (!products.removeIf(product -> id.equals(product.getId())))
-            throw new ProductNotFoundException(String.format("Cannot delete product with given id:%d", id));
-        lock.writeLock().unlock();
+        try {
+            if (!products.removeIf(product -> id.equals(product.getId())))
+                throw new ProductNotFoundException(String.format("Cannot delete product with given id:%d", id));
+        } finally {
+            lock.writeLock().unlock();
+        }
     }
 
     private void setSampleProducts() {
@@ -91,5 +106,22 @@ public class ArrayListProductDao implements ProductDao {
     private void addNewProduct(Product product, List<Product> products) {
         product.setId(currentMaxId++);
         products.add(product);
+    }
+
+    private boolean containsAnyWordFrom(String query, String desc) {
+        String[] words = query.split(" +");
+        for (String word : words)
+            if (desc.contains(word))
+                return true;
+        return false;
+    }
+
+    private int numberOfWordsMatch(String query, String desc) {
+        int counter = 0;
+        String[] words = query.split(" +");
+        for (String word : words)
+            if (desc.contains(word))
+                counter++;
+        return counter;
     }
 }
