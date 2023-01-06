@@ -2,6 +2,8 @@ package com.es.phoneshop.model.product.dao.impl;
 
 import com.es.phoneshop.model.product.dao.ProductDao;
 import com.es.phoneshop.model.product.entity.Product;
+import com.es.phoneshop.model.product.enums.SortField;
+import com.es.phoneshop.model.product.enums.SortOrder;
 import com.es.phoneshop.model.product.exception.ProductNotFoundException;
 
 import java.math.BigDecimal;
@@ -15,6 +17,7 @@ public class ArrayListProductDao implements ProductDao {
     private ReadWriteLock lock = new ReentrantReadWriteLock();
 
     private long currentMaxId = 1;
+
 
     public ArrayListProductDao() {
         products = new ArrayList<>();
@@ -38,18 +41,36 @@ public class ArrayListProductDao implements ProductDao {
     }
 
     @Override
-    public synchronized List<Product> findProducts(String query) {
-        return products.stream().
-                filter(Objects::nonNull).
-                filter(product -> query == null || query.isEmpty() || containsAnyWordFrom(query, product.getDescription())).
-                sorted((p1, p2) -> {
-                    int firstProductMatches = numberOfWordsMatch(query, p1.getDescription());
-                    int secondProductMatches = numberOfWordsMatch(query, p2.getDescription());
-                    return secondProductMatches - firstProductMatches;
-                }).
-                filter(product -> product.getPrice() != null).
-                filter(product -> product.getStock() > 0).
-                collect(Collectors.toList());
+    public List<Product> findProducts(String query, SortField sort, SortOrder order) {
+        lock.readLock().lock();
+        try {
+            List<Product> foundProducts = products.stream().
+                    filter(Objects::nonNull).
+                    filter(product -> query == null || query.isEmpty() || containsAnyWordFrom(query, product.getDescription())).
+                    sorted((p1, p2) -> {
+                        if (query == null)
+                            return 0;
+                        int firstProductMatches = numberOfWordsMatch(query, p1.getDescription());
+                        int secondProductMatches = numberOfWordsMatch(query, p2.getDescription());
+                        return secondProductMatches - firstProductMatches;
+                    }).
+                    filter(product -> product.getPrice() != null).
+                    filter(product -> product.getStock() > 0).
+                    collect(Collectors.toList());
+            if (sort != null && order != null) {
+                Comparator<Product> comparator = Comparator.comparing(product ->
+                        chooseSortField((Product) product, sort)
+                );
+                if (SortOrder.ASC == order)
+                    comparator = comparator.thenComparing(Product::getDescription);
+                else
+                    comparator = comparator.thenComparing(Product::getDescription).reversed();
+                foundProducts = foundProducts.stream().sorted(comparator).collect(Collectors.toList());
+            }
+            return foundProducts;
+        } finally {
+            lock.readLock().unlock();
+        }
     }
 
     @Override
@@ -124,4 +145,12 @@ public class ArrayListProductDao implements ProductDao {
                 counter++;
         return counter;
     }
+
+    private Comparable chooseSortField(Product product, SortField sortField) {
+        if (SortField.DESCRIPTION == sortField)
+            return product.getDescription();
+        else
+            return product.getPrice();
+    }
+
 }
