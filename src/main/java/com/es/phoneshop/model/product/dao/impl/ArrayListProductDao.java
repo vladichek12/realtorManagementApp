@@ -6,7 +6,6 @@ import com.es.phoneshop.model.product.enums.SortField;
 import com.es.phoneshop.model.product.enums.SortOrder;
 import com.es.phoneshop.model.product.exception.ProductNotFoundException;
 
-import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -35,7 +34,6 @@ public class ArrayListProductDao implements ProductDao {
 
     private ArrayListProductDao() {
         products = new ArrayList<>();
-        //setSampleProducts();
     }
 
     @Override

@@ -20,15 +20,11 @@
                 Description
                 <tags:sortLink sort="DESCRIPTION" order="ASC"/>
                 <tags:sortLink sort="DESCRIPTION" order="DESC"/>
-<%--                <a href="?sort=DESCRIPTION&order=ASC&query=${param.query}">asc</a>--%>
-<%--                <a href="?sort=DESCRIPTION&order=DESC&query=${param.query}">desc</a>--%>
             </td>
             <td class="price">
                 Price
                 <tags:sortLink sort="PRICE" order="ASC"/>
                 <tags:sortLink sort="PRICE" order="DESC"/>
-<%--                <a href="?sort=PRICE&order=ASC&query=${param.query}">asc</a>--%>
-<%--                <a href="?sort=PRICE&order=DESC&query=${param.query}">desc</a>--%>
             </td>
         </tr>
         </thead>
@@ -36,12 +32,16 @@
             <tr>
                 <td>
                     <img class="product-tile"
-                         src="https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/${product.imageUrl}">
+                         src="${product.imageUrl}">
                 </td>
-                <td>${product.description}</td>
+                <td>
+                    <a href="${pageContext.servletContext.contextPath}/products/${product.id}">${product.description}</a>
+                </td>
                 <td class="price">
-                    <fmt:formatNumber value="${product.price}" type="currency"
-                                      currencySymbol="${product.currency.symbol}"/>
+                    <a href=""
+                       onclick='window.open("${pageContext.servletContext.contextPath}/products/${product.id}/priceHistory", "_blank", "scrollbars=0,resizable=0,height=400,width=360");'>
+                        <fmt:formatNumber value="${product.price}" type="currency"
+                                          currencySymbol="${product.currency.symbol}"/></a>
                 </td>
             </tr>
         </c:forEach>
