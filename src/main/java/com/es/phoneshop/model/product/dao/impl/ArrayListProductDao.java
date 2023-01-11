@@ -38,14 +38,15 @@ public class ArrayListProductDao implements ProductDao {
 
     @Override
     public Product getProduct(Long id) throws ProductNotFoundException {
-        if (id == null)
+        if (id == null) {
             throw new IllegalArgumentException("Parameter id is null");
+        }
         lock.readLock().lock();
         try {
             Product product = products.stream().
                     filter(currProduct -> id.equals(currProduct.getId())).
                     findAny().
-                    orElseThrow(() -> new ProductNotFoundException(String.format("No such product with given id:%d", id)));
+                    orElseThrow(() -> new ProductNotFoundException(String.format("No such product with given code:%d", id)));
             return product;
         } finally {
             lock.readLock().unlock();
@@ -60,8 +61,9 @@ public class ArrayListProductDao implements ProductDao {
                     filter(Objects::nonNull).
                     filter(product -> query == null || query.isEmpty() || containsAnyWordFrom(query, product.getDescription())).
                     sorted((p1, p2) -> {
-                        if (query == null)
+                        if (query == null) {
                             return 0;
+                        }
                         int firstProductMatches = numberOfWordsMatch(query, p1.getDescription());
                         int secondProductMatches = numberOfWordsMatch(query, p2.getDescription());
                         return secondProductMatches - firstProductMatches;
@@ -73,10 +75,11 @@ public class ArrayListProductDao implements ProductDao {
                 Comparator<Product> comparator = Comparator.comparing(product ->
                         chooseSortField((Product) product, sort)
                 );
-                if (SortOrder.ASC == order)
+                if (SortOrder.ASC == order) {
                     comparator = comparator.thenComparing(Product::getDescription);
-                else
+                } else {
                     comparator = comparator.thenComparing(Product::getDescription).reversed();
+                }
                 foundProducts = foundProducts.stream().sorted(comparator).collect(Collectors.toList());
             }
             return foundProducts;
@@ -95,8 +98,9 @@ public class ArrayListProductDao implements ProductDao {
                         findAny();
                 if (productToAdd.isEmpty()) {
                     addNewProduct(product, products);
-                } else
+                } else {
                     products.set(products.indexOf(productToAdd.get()), product);
+                }
             } else {
                 addNewProduct(product, products);
             }
@@ -107,12 +111,14 @@ public class ArrayListProductDao implements ProductDao {
 
     @Override
     public void delete(Long id) {
-        if (id == null)
+        if (id == null) {
             throw new IllegalArgumentException("Parameter id is null");
+        }
         lock.writeLock().lock();
         try {
-            if (!products.removeIf(product -> id.equals(product.getId())))
+            if (!products.removeIf(product -> id.equals(product.getId()))) {
                 throw new ProductNotFoundException(String.format("Cannot delete product with given id:%d", id));
+            }
         } finally {
             lock.writeLock().unlock();
         }
@@ -127,8 +133,9 @@ public class ArrayListProductDao implements ProductDao {
     private boolean containsAnyWordFrom(String query, String desc) {
         String[] words = query.split(" +");
         for (String word : words)
-            if (desc.contains(word))
+            if (desc.contains(word)) {
                 return true;
+            }
         return false;
     }
 
@@ -136,16 +143,17 @@ public class ArrayListProductDao implements ProductDao {
         int counter = 0;
         String[] words = query.split(" +");
         for (String word : words)
-            if (desc.contains(word))
+            if (desc.contains(word)) {
                 counter++;
+            }
         return counter;
     }
 
     private Comparable chooseSortField(Product product, SortField sortField) {
-        if (SortField.DESCRIPTION == sortField)
+        if (SortField.DESCRIPTION == sortField) {
             return product.getDescription();
-        else
+        } else {
             return product.getPrice();
+        }
     }
-
 }
