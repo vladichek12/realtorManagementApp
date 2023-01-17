@@ -48,20 +48,23 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void add(Cart cart, Long productId, int quantity) throws OutOfStockException {
-        Product product = productDao.getProduct(productId);
-        if (calculateQuantityConsideringCart(cart, product) < quantity) {
-            throw new OutOfStockException(product, quantity, product.getStock());
-        }
-        Optional<CartItem> productMatch = cart.getItems().stream().
-                filter(currProduct -> currProduct.getProduct().equals(product)).
-                findAny();
-        if (productMatch.isPresent()) {
-            cart.getItems().
-                    get(cart.getItems().indexOf(productMatch.get())).
-                    setQuantity(productMatch.get().getQuantity() + quantity);
-        } else {
-            cart.getItems().add(new CartItem(product, quantity));
+    public void add(Cart cart, Long productId, int quantity, HttpServletRequest request) throws OutOfStockException {
+        HttpSession currentSession = request.getSession();
+        synchronized (currentSession) {
+            Product product = productDao.getProduct(productId);
+            if (calculateQuantityConsideringCart(cart, product) < quantity) {
+                throw new OutOfStockException(product, quantity, product.getStock());
+            }
+            Optional<CartItem> productMatch = cart.getItems().stream().
+                    filter(currProduct -> currProduct.getProduct().equals(product)).
+                    findAny();
+            if (productMatch.isPresent()) {
+                cart.getItems().
+                        get(cart.getItems().indexOf(productMatch.get())).
+                        setQuantity(productMatch.get().getQuantity() + quantity);
+            } else {
+                cart.getItems().add(new CartItem(product, quantity));
+            }
         }
     }
 
@@ -69,7 +72,8 @@ public class CartServiceImpl implements CartService {
         int result = product.getStock();
         Optional<Integer> quantityInCart = cart.getItems().stream().
                 filter(currProduct -> currProduct.getProduct().equals(product)).
-                map(CartItem::getQuantity).findAny();
+                map(CartItem::getQuantity).
+                findAny();
         if (quantityInCart.isPresent()) {
             result -= quantityInCart.get();
         }
