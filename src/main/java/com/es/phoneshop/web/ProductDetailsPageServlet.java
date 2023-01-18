@@ -59,19 +59,19 @@ public class ProductDetailsPageServlet extends HttpServlet {
             quantity = numberFormat.parse(request.getParameter("quantity")).intValue();
         } catch (ParseException exception) {
             request.setAttribute("error", "Not a number!");
-            response.sendRedirect(String.format("%s/%s/%d%s", request.getContextPath(), "products", productId, "?message=&error=Not a number!"));
+            response.sendRedirect(String.format("%s/products/%d?message=&error=Not a number!", request.getContextPath(), productId));
             return;
         }
         try {
             cartService.add(cart, productId, quantity, request);
         } catch (OutOfStockException e) {
             request.setAttribute("error", "Not enough items in stock! Available: " + e.getAvailableStock());
-            response.sendRedirect(String.format("%s/%s/%d%s", request.getContextPath(), "products", productId, "?message=&error=Not enough items in stock! Available:" + e.getAvailableStock()));
+            response.sendRedirect(String.format("%s/products/%d?message=&error=Not enough items in stock! Available:" + e.getAvailableStock(), request.getContextPath(), productId));
             return;
         }
 
         request.setAttribute("product", productDao.getProduct(productId));
         request.setAttribute("cart", cartService.getCart(request));
-        response.sendRedirect(String.format("%s/%s/%d%s", request.getContextPath(), "products", productId, "?message=Product was added to cart successfully!"));
+        response.sendRedirect(String.format("%s/products/%d?message=Product was added to cart successfully!", request.getContextPath(), productId));
     }
 }
