@@ -64,7 +64,34 @@ public class CartServiceImpl implements CartService {
                         setQuantity(productMatch.get().getQuantity() + quantity);
             } else {
                 cart.getItems().add(new CartItem(product, quantity));
+                currentSession.setAttribute("cart", cart);
             }
+        }
+    }
+
+    @Override
+    public void update(Cart cart, Long productId, int quantity, HttpServletRequest request) throws OutOfStockException {
+        HttpSession currentSession = request.getSession();
+        synchronized (currentSession) {
+            Product product = productDao.getProduct(productId);
+            if (quantity > product.getStock()) {
+                throw new OutOfStockException(product, quantity, product.getStock());
+            }
+            Optional<CartItem> productMatch = cart.getItems().stream().
+                    filter(currProduct -> currProduct.getProduct().getId().equals(product.getId())).
+                    findAny();
+            productMatch.ifPresent(cartItem -> cart.getItems().
+                    get(cart.getItems().indexOf(cartItem)).
+                    setQuantity(quantity));
+        }
+    }
+
+    @Override
+    public void delete(Cart cart, Long productId, HttpServletRequest request) {
+        HttpSession currentSession = request.getSession();
+        synchronized (currentSession) {
+            Product product = productDao.getProduct(productId);
+            cart.getItems().removeIf(item -> productId.equals(item.getProduct().getId()));
         }
     }
 

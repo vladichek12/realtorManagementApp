@@ -66,7 +66,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
             cartService.add(cart, productId, quantity, request);
         } catch (OutOfStockException e) {
             request.setAttribute("error", "Not enough items in stock! Available: " + e.getAvailableStock());
-            response.sendRedirect(String.format("%s/products/%d?message=&error=Not enough items in stock! Available:" + e.getAvailableStock(), request.getContextPath(), productId));
+            response.sendRedirect(String.format("%s/products/%d?message=&error=Not enough items in stock! Available:%d", request.getContextPath(), productId, e.getAvailableStock()));
             return;
         }
 

@@ -56,4 +56,9 @@ public class ProductServiceImpl implements ProductService {
         HttpSession currentSession = request.getSession();
         currentSession.setAttribute("recentProducts", products);
     }
+
+    @Override
+    public Long parseProductIdFromDeleteRequest(HttpServletRequest request) throws NumberFormatException {
+        return Long.parseLong(request.getPathInfo().substring(1));
+    }
 }
