@@ -75,7 +75,9 @@
                 <td/>
                 <td/>
                 <td>Total cost</td>
-                <td class="price">${cart.totalCost}</td>
+                <td class="price"><fmt:setLocale value="en_US"/>
+                    <fmt:formatNumber value="${cart.totalCost}" type="currency"/></td>
+                </td>
             </tr>
         </table>
         <p>

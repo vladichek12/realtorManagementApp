@@ -4,12 +4,14 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
 <jsp:useBean id="cart" class="com.es.phoneshop.model.product.cart.Cart" scope="request"/>
-Cart: ${cart.totalItems}
-<c:choose>
-    <c:when test="${cart.totalItems==1}">
-        item
-    </c:when>
-    <c:otherwise>
-        items
-    </c:otherwise>
-</c:choose>
+<a href="${pageContext.servletContext.contextPath}/cart">
+    Cart: ${cart.totalItems}
+    <c:choose>
+        <c:when test="${cart.totalItems==1}">
+            item
+        </c:when>
+        <c:otherwise>
+            items
+        </c:otherwise>
+    </c:choose>
+</a>

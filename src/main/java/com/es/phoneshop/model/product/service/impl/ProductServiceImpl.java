@@ -60,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Long parseProductIdFromDeleteRequest(HttpServletRequest request) throws NumberFormatException {
+    public Long parseProductIdFromDeleteOrAddRequest(HttpServletRequest request) throws NumberFormatException {
         return Long.parseLong(request.getPathInfo().substring(1));
     }
 

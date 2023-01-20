@@ -71,7 +71,6 @@ public class ProductDetailsPageServlet extends HttpServlet {
         }
 
         request.setAttribute("product", productDao.getProduct(productId));
-        request.setAttribute("cart", cartService.getCart(request));
         response.sendRedirect(String.format("%s/products/%d?message=Product was added to cart successfully!", request.getContextPath(), productId));
     }
 }

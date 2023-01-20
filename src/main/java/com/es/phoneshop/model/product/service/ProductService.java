@@ -11,7 +11,7 @@ public interface ProductService {
 
     Long parseProductIdFromRequestWithoutHistory(HttpServletRequest request) throws NumberFormatException;
 
-    Long parseProductIdFromDeleteRequest(HttpServletRequest request) throws NumberFormatException;
+    Long parseProductIdFromDeleteOrAddRequest(HttpServletRequest request) throws NumberFormatException;
 
     void includeProductInRecentProducts(Product product, HttpServletRequest request);
 
