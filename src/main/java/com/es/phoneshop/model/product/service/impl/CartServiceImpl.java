@@ -10,6 +10,7 @@ import com.es.phoneshop.model.product.service.CartService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 public class CartServiceImpl implements CartService {
@@ -66,6 +67,7 @@ public class CartServiceImpl implements CartService {
                 cart.getItems().add(new CartItem(product, quantity));
                 currentSession.setAttribute("cart", cart);
             }
+            reCalculateCart(cart);
         }
     }
 
@@ -83,6 +85,7 @@ public class CartServiceImpl implements CartService {
             productMatch.ifPresent(cartItem -> cart.getItems().
                     get(cart.getItems().indexOf(cartItem)).
                     setQuantity(quantity));
+            reCalculateCart(cart);
         }
     }
 
@@ -92,6 +95,7 @@ public class CartServiceImpl implements CartService {
         synchronized (currentSession) {
             Product product = productDao.getProduct(productId);
             cart.getItems().removeIf(item -> productId.equals(item.getProduct().getId()));
+            reCalculateCart(cart);
         }
     }
 
@@ -105,5 +109,22 @@ public class CartServiceImpl implements CartService {
             result -= quantityInCart.get();
         }
         return result;
+    }
+
+    @Override
+    public void reCalculateCart(Cart cartToRecalculate) {
+        BigDecimal totalCost = BigDecimal.ZERO;
+        cartToRecalculate.setTotalItems(
+                cartToRecalculate.getItems().stream().
+                        map(CartItem::getQuantity).
+                        mapToInt(q -> q).
+                        sum()
+        );
+        for (CartItem item : cartToRecalculate.getItems()) {
+            totalCost = totalCost.add(
+                    item.getProduct().getPrice().
+                            multiply(BigDecimal.valueOf(item.getQuantity())));
+        }
+        cartToRecalculate.setTotalCost(totalCost);
     }
 }

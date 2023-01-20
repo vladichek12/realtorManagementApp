@@ -5,9 +5,19 @@
 
 <jsp:useBean id="cart" class="com.es.phoneshop.model.product.cart.Cart" scope="session"/>
 <tags:master pageTitle="Cart">
-    <c:if test="${not empty param.error}">
-        <p class="error">There was an error updating the cart!</p>
-    </c:if>
+    <c:choose>
+        <c:when test="${not empty inputErrors}">
+            <p class="error">There were some problems updating the cart!</p>
+        </c:when>
+        <c:otherwise>
+            <c:if test="${not empty param.message}">
+                <p class="success">${param.message}</p>
+            </c:if>
+        </c:otherwise>
+    </c:choose>
+    <h2>
+        Total items: ${cart.totalItems}
+    </h2>
     <form method="post">
         <table>
             <thead>
@@ -29,7 +39,7 @@
                 <td/>
             </tr>
             </thead>
-            <c:forEach var="item" items="${cart.items}">
+            <c:forEach var="item" items="${cart.items}" varStatus="status">
                 <tr>
                     <td>
                         <img class="product-tile"
@@ -45,16 +55,28 @@
                                               currencySymbol="${item.product.currency.symbol}"/></a>
                     </td>
                     <td class="quantity">
-                        <input name="quantity" class="quantity" value="${item.quantity}"/>
+                        <c:set var="inputError" value="${inputErrors[item.product.id]}"/>
+                        <input name="quantity" class="quantity"
+                               value="${not empty inputError? paramValues['quantity'][status.index]:item.quantity}"/>
                         <input type="hidden" name="productId" value="${item.product.id}"/>
+                        <c:if test="${not empty inputError}">
+                            <div class="error">${inputError}</div>
+                        </c:if>
                     </td>
                     <td>
-                        <button form="deleteForm" formaction="${pageContext.servletContext.contextPath}/cart/deleteItem/${item.product.id}">
+                        <button form="deleteForm"
+                                formaction="${pageContext.servletContext.contextPath}/cart/deleteItem/${item.product.id}">
                             Delete
                         </button>
                     </td>
                 </tr>
             </c:forEach>
+            <tr>
+                <td/>
+                <td/>
+                <td>Total cost</td>
+                <td class="price">${cart.totalCost}</td>
+            </tr>
         </table>
         <p>
             <c:if test="${not empty cart.items}">

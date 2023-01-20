@@ -3,6 +3,7 @@ package com.es.phoneshop.model.product.service;
 import com.es.phoneshop.model.product.entity.Product;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.Set;
 
 public interface ProductService {
@@ -15,4 +16,6 @@ public interface ProductService {
     void includeProductInRecentProducts(Product product, HttpServletRequest request);
 
     void setRecentProductsInSession(HttpServletRequest request, Set<Product> products);
+
+    int parseQuantity(String quantity, HttpServletRequest request) throws ParseException;
 }
