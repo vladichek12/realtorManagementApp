@@ -11,6 +11,7 @@ import com.es.phoneshop.model.product.service.CartService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 public class CartServiceImpl implements CartService {
@@ -51,15 +52,13 @@ public class CartServiceImpl implements CartService {
     @Override
     public void add(Cart cart, Long productId, int quantity, HttpServletRequest request) throws OutOfStockException {
         HttpSession currentSession = request.getSession();
+        Optional<CartItem> productMatch;
         synchronized (currentSession) {
             Product product = productDao.getProduct(productId);
             if (calculateQuantityConsideringCart(cart, product) < quantity) {
                 throw new OutOfStockException(product, quantity, product.getStock());
             }
-            Optional<CartItem> productMatch = cart.getItems().stream().
-                    filter(currProduct -> currProduct.getProduct().equals(product)).
-                    findAny();
-            if (productMatch.isPresent()) {
+            if ((productMatch = getCartItemMatch(cart, product)).isPresent()) {
                 cart.getItems().
                         get(cart.getItems().indexOf(productMatch.get())).
                         setQuantity(productMatch.get().getQuantity() + quantity);
@@ -79,10 +78,7 @@ public class CartServiceImpl implements CartService {
             if (quantity > product.getStock()) {
                 throw new OutOfStockException(product, quantity, product.getStock());
             }
-            Optional<CartItem> productMatch = cart.getItems().stream().
-                    filter(currProduct -> currProduct.getProduct().getId().equals(product.getId())).
-                    findAny();
-            productMatch.ifPresent(cartItem -> cart.getItems().
+            getCartItemMatch(cart, product).ifPresent(cartItem -> cart.getItems().
                     get(cart.getItems().indexOf(cartItem)).
                     setQuantity(quantity));
             reCalculateCart(cart);
@@ -126,5 +122,11 @@ public class CartServiceImpl implements CartService {
                             multiply(BigDecimal.valueOf(item.getQuantity())));
         }
         cartToRecalculate.setTotalCost(totalCost);
+    }
+
+    private Optional<CartItem> getCartItemMatch(Cart cart, Product product) {
+        return cart.getItems().stream().
+                filter(currProduct -> currProduct.getProduct().getId().equals(product.getId())).
+                findAny();
     }
 }

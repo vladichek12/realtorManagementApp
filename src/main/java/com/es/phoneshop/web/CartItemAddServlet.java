@@ -33,7 +33,7 @@ public class CartItemAddServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Long productId = null;
         Map<Long, String> inputError = new HashMap<>();
         try {
@@ -44,7 +44,9 @@ public class CartItemAddServlet extends HttpServlet {
 
             NumberFormat numberFormat = NumberFormat.getNumberInstance(request.getLocale());
             int quantity = numberFormat.parse(request.getParameter("quantity")).intValue();
-
+            if (quantity == 0) {
+                throw new ParseException("Not a number!", 0);
+            }
             cartService.add(cartService.getCart(request), productId, quantity, request);
         } catch (ParseException | NumberFormatException exception) {
             inputError.put(productId, "Not a number!");
@@ -53,7 +55,7 @@ public class CartItemAddServlet extends HttpServlet {
             inputError.put(productId, "Out of stock! Available:" + e.getAvailableStock());
             request.getSession().setAttribute("inputError", inputError);
         }
-        if(inputError.isEmpty()) {
+        if (inputError.isEmpty()) {
             request.getSession().setAttribute("inputError", inputError);
             response.sendRedirect(String.format("%s/products?message=%s was successfully added to the cart!",
                     request.getContextPath(),

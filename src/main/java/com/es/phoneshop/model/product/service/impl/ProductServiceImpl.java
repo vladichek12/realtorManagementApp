@@ -63,9 +63,9 @@ public class ProductServiceImpl implements ProductService {
     public Long parseProductIdFromDeleteOrAddRequest(HttpServletRequest request) throws NumberFormatException {
         return Long.parseLong(request.getPathInfo().substring(1));
     }
-
+    @Override
     public int parseQuantity(String quantity, HttpServletRequest request) throws ParseException {
-        int result = -1;
+        int result;
         if (!quantity.matches("^\\d+([\\.\\,]\\d+)?$")) {
             throw new ParseException("Not a number!", 0);
         }

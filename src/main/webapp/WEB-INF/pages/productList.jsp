@@ -53,11 +53,11 @@
                 </td>
                 <form method="post" action="${pageContext.servletContext.contextPath}/cart/addItem/${product.id}">
                     <td>
-                        <c:set var="inputError" value="${sessionScope.inputError[product.id]}"/>
-                        <input name="quantity" class="quantity" value="${empty inputError ? 1 : sessionScope.enteredQuantity}"/>
-                        <c:if test="${not empty inputError}">
+                        <c:set var="errorMessage" value="${sessionScope.inputError[product.id]}"/>
+                        <input name="quantity" class="quantity" value="${empty errorMessage ? 1 : sessionScope.enteredQuantity}"/>
+                        <c:if test="${not empty errorMessage}">
                             <span class="error">
-                                ${inputError}
+                                ${errorMessage}
                             </span>
                         </c:if>
                     </td>
