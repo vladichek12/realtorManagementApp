@@ -88,6 +88,11 @@
             </c:if>
         </p>
     </form>
+    <form action="${pageContext.servletContext.contextPath}/checkout">
+        <button>
+            Checkout
+        </button>
+    </form>
     <p>
         <tags:recentlyViewedProducts products="${recentProducts}"/>
     </p>
