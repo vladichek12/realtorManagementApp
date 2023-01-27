@@ -7,7 +7,7 @@
 <a href="${pageContext.servletContext.contextPath}/cart">
     Cart: ${cart.totalItems}
     <c:choose>
-        <c:when test="${cart.totalItems==1}">
+        <c:when test="${cart.totalItems == 1}">
             item
         </c:when>
         <c:otherwise>

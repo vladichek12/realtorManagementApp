@@ -16,6 +16,11 @@ public interface OrderService {
                                        Map<String, String> errorsMap,
                                        Consumer<String> consumer);
 
+    void setRequiredPhoneNumberCustomerInfo(
+            Order order,
+            HttpServletRequest request,
+            Map<String, String> errorsMap);
+
     void setRequiredLocalDateCustomerInfo(
             Order order,
             HttpServletRequest request,

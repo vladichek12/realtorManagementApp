@@ -81,6 +81,23 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void setRequiredPhoneNumberCustomerInfo(Order order,
+                                                   HttpServletRequest request,
+                                                   Map<String, String> errorsMap) {
+        String phoneNumber = request.getParameter("phoneNumber");
+
+        if (phoneNumber == null || phoneNumber.isEmpty()) {
+            errorsMap.put("phoneNumber", "This field must be filled in!");
+        } else {
+            if (!phoneNumber.matches("^(\\+375|80)(29|25|44|33)(\\d{3})(\\d{2})(\\d{2})$")) {
+                errorsMap.put("phoneNumber", "There were some errors in phone number!");
+            } else {
+                order.getCustomerInfo().setPhoneNumber(phoneNumber);
+            }
+        }
+    }
+
+    @Override
     public void setRequiredLocalDateCustomerInfo(Order order,
                                                  HttpServletRequest request,
                                                  Map<String, String> errorsMap) {

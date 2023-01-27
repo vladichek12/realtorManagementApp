@@ -55,17 +55,16 @@ public class CheckoutPageServlet extends HttpServlet {
 
         orderService.setRequiredStringCustomerInfo(
                 currentOrder,
-                "phoneNumber",
-                request,
-                possibleErrors,
-                currentOrder.getCustomerInfo()::setPhoneNumber);
-
-        orderService.setRequiredStringCustomerInfo(
-                currentOrder,
                 "deliveryAddress",
                 request,
                 possibleErrors,
                 currentOrder.getCustomerInfo()::setDeliveryAddress);
+
+        orderService.setRequiredPhoneNumberCustomerInfo(
+                currentOrder,
+                request,
+                possibleErrors
+        );
 
         orderService.setRequiredLocalDateCustomerInfo(
                 currentOrder,
