@@ -50,4 +50,8 @@ public class DefaultDosProtectionService implements DosProtectionService {
         requestsMap.put(ipAddress, ++count);
         return true;
     }
+
+    public Map<String, Long> getRequestsMap() {
+        return requestsMap;
+    }
 }
