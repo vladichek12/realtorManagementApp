@@ -3,8 +3,8 @@ package com.es.phoneshop.model.product.dao.impl;
 import com.es.phoneshop.model.product.dao.EntityDao;
 import com.es.phoneshop.model.product.dao.OrderDao;
 import com.es.phoneshop.model.product.dao.ProductDao;
+import com.es.phoneshop.model.product.entity.Order;
 import com.es.phoneshop.model.product.exception.OrderNotFoundException;
-import com.es.phoneshop.model.product.order.Order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,7 @@ public class ArrayListOrderDao extends EntityDao<Order> implements OrderDao {
         }
         return localInstance;
     }
+
     private ReadWriteLock lock = new ReentrantReadWriteLock();
 
     private long currentMaxId = 1;

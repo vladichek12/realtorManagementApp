@@ -1,7 +1,4 @@
-package com.es.phoneshop.model.product.cart;
-
-import com.es.phoneshop.model.product.entity.Entity;
-import com.es.phoneshop.model.product.order.Order;
+package com.es.phoneshop.model.product.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

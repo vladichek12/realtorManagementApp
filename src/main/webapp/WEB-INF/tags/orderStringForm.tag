@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
-<%@ attribute name="order" required="true" type="com.es.phoneshop.model.product.order.Order" %>
+<%@ attribute name="order" required="true" type="com.es.phoneshop.model.product.entity.Order" %>
 <%@ attribute name="name" required="true" %>
 <%@ attribute name="label" required="true" %>
 <%@ attribute name="possibleErrors" required="true" type="java.util.Map" %>

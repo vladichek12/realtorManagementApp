@@ -1,6 +1,6 @@
-package com.es.phoneshop.model.product.order;
+package com.es.phoneshop.model.product.entity;
 
-import com.es.phoneshop.model.product.cart.Cart;
+import com.es.phoneshop.model.product.entity.Cart;
 import com.es.phoneshop.model.product.enums.PaymentMethod;
 
 import java.math.BigDecimal;

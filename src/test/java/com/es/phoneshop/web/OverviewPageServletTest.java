@@ -2,7 +2,7 @@ package com.es.phoneshop.web;
 
 import com.es.phoneshop.model.product.dao.OrderDao;
 import com.es.phoneshop.model.product.dao.impl.ArrayListOrderDao;
-import com.es.phoneshop.model.product.order.Order;
+import com.es.phoneshop.model.product.entity.Order;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

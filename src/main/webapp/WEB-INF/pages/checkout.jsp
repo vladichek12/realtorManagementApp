@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
-<jsp:useBean id="order" class="com.es.phoneshop.model.product.order.Order" scope="request"/>
+<jsp:useBean id="order" class="com.es.phoneshop.model.product.entity.Order" scope="request"/>
 <tags:master pageTitle="Checkout">
     <h2>
         Total items: ${order.totalItems}

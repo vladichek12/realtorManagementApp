@@ -12,7 +12,7 @@ public class DefaultDosProtectionService implements DosProtectionService {
 
     private final long MINUTE = 60000000000L;
 
-    private long clockBeginTime;
+    private ThreadLocal<Long> clockBeginTime;
 
     private Map<String, Long> requestsMap;
 
@@ -30,7 +30,7 @@ public class DefaultDosProtectionService implements DosProtectionService {
 
     private DefaultDosProtectionService() {
         requestsMap = new ConcurrentHashMap<>();
-        clockBeginTime = System.nanoTime();
+        clockBeginTime = ThreadLocal.withInitial(System::nanoTime);
     }
 
     @Override
@@ -39,11 +39,11 @@ public class DefaultDosProtectionService implements DosProtectionService {
         if (count == null) {
             count = 0L;
         } else if (count > MAX_AMOUNT_OF_REQUESTS_FROM_SINGLE_IP) {
-            if (System.nanoTime() - clockBeginTime < MINUTE) {
+            if (System.nanoTime() - clockBeginTime.get() < MINUTE) {
                 return false;
             } else {
                 requestsMap.put(ipAddress, 0L);
-                clockBeginTime = System.nanoTime();
+                clockBeginTime.set(System.nanoTime());
                 return true;
             }
         }

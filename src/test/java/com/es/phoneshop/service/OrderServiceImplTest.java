@@ -1,9 +1,9 @@
 package com.es.phoneshop.service;
 
-import com.es.phoneshop.model.product.cart.Cart;
-import com.es.phoneshop.model.product.cart.CartItem;
+import com.es.phoneshop.model.product.entity.Cart;
+import com.es.phoneshop.model.product.entity.CartItem;
 import com.es.phoneshop.model.product.entity.Product;
-import com.es.phoneshop.model.product.order.Order;
+import com.es.phoneshop.model.product.entity.Order;
 import com.es.phoneshop.model.product.service.OrderService;
 import com.es.phoneshop.model.product.service.impl.OrderServiceImpl;
 import org.junit.Assert;

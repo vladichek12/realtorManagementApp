@@ -1,4 +1,4 @@
-package com.es.phoneshop.model.product.cart;
+package com.es.phoneshop.model.product.entity;
 
 import com.es.phoneshop.model.product.entity.Product;
 
@@ -34,7 +34,11 @@ public class CartItem implements Serializable, Cloneable {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e.getMessage(), e.getCause());
+        }
     }
 }

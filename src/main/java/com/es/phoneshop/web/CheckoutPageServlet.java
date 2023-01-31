@@ -1,7 +1,6 @@
 package com.es.phoneshop.web;
 
-import com.es.phoneshop.model.product.cart.Cart;
-import com.es.phoneshop.model.product.order.Order;
+import com.es.phoneshop.model.product.entity.Order;
 import com.es.phoneshop.model.product.service.CartService;
 import com.es.phoneshop.model.product.service.OrderService;
 import com.es.phoneshop.model.product.service.impl.CartServiceImpl;
@@ -19,6 +18,10 @@ import java.util.Map;
 public class CheckoutPageServlet extends HttpServlet {
     private CartService cartService;
     private OrderService orderService;
+
+    private final String FIRST_NAME_REQUIRED_PARAM = "firstName";
+    private final String LAST_NAME_REQUIRED_PARAM = "lastName";
+    private final String DELIVERY_ADDRESS_REQUIRED_PARAM = "deliveryAddress";
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -41,21 +44,21 @@ public class CheckoutPageServlet extends HttpServlet {
 
         orderService.setRequiredStringCustomerInfo(
                 currentOrder,
-                "firstName",
+                FIRST_NAME_REQUIRED_PARAM,
                 request,
                 possibleErrors,
                 currentOrder.getCustomerInfo()::setFirstName);
 
         orderService.setRequiredStringCustomerInfo(
                 currentOrder,
-                "lastName",
+                LAST_NAME_REQUIRED_PARAM,
                 request,
                 possibleErrors,
                 currentOrder.getCustomerInfo()::setLastName);
 
         orderService.setRequiredStringCustomerInfo(
                 currentOrder,
-                "deliveryAddress",
+                DELIVERY_ADDRESS_REQUIRED_PARAM,
                 request,
                 possibleErrors,
                 currentOrder.getCustomerInfo()::setDeliveryAddress);
@@ -77,10 +80,7 @@ public class CheckoutPageServlet extends HttpServlet {
                 possibleErrors);
 
         if (possibleErrors.isEmpty()) {
-            orderService.placeOrder(currentOrder);
-            Cart currentCart = cartService.getCart(request);
-            currentCart.getItems().clear();
-            cartService.reCalculateCart(currentCart);
+            orderService.placeOrder(currentOrder, request);
             response.sendRedirect(String.format("%s/order/overview/%s", request.getContextPath(), currentOrder.getSecureId()));
         } else {
             request.setAttribute("possibleErrors", possibleErrors);

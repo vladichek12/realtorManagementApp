@@ -1,9 +1,9 @@
 package com.es.phoneshop.model.product.service.impl;
 
-import com.es.phoneshop.model.product.cart.Cart;
-import com.es.phoneshop.model.product.cart.CartItem;
 import com.es.phoneshop.model.product.dao.ProductDao;
 import com.es.phoneshop.model.product.dao.impl.ArrayListProductDao;
+import com.es.phoneshop.model.product.entity.Cart;
+import com.es.phoneshop.model.product.entity.CartItem;
 import com.es.phoneshop.model.product.entity.Product;
 import com.es.phoneshop.model.product.exception.OutOfStockException;
 import com.es.phoneshop.model.product.service.CartService;

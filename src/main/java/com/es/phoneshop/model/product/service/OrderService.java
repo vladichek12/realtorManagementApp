@@ -1,7 +1,7 @@
 package com.es.phoneshop.model.product.service;
 
-import com.es.phoneshop.model.product.cart.Cart;
-import com.es.phoneshop.model.product.order.Order;
+import com.es.phoneshop.model.product.entity.Cart;
+import com.es.phoneshop.model.product.entity.Order;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -31,7 +31,7 @@ public interface OrderService {
             HttpServletRequest request,
             Map<String, String> errorsMap);
 
-    void placeOrder(Order orderToPlace);
+    void placeOrder(Order orderToPlace, HttpServletRequest request);
 
     String parseSecureOrderIdFromRequest(HttpServletRequest request);
 }
