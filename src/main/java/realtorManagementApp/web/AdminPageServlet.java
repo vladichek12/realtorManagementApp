@@ -15,6 +15,7 @@ import java.util.List;
 public class AdminPageServlet extends HttpServlet {
     private UserDao userDao;
     private List<User> customers;
+    private List<User> realtors;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -25,6 +26,8 @@ public class AdminPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         customers = userDao.findAllCustomers();
+        realtors = userDao.findAllRealtors();
+        request.setAttribute("realtors",realtors);
         request.setAttribute("customers", customers);
         request.getRequestDispatcher("/WEB-INF/pages/adminPage.jsp").forward(request, response);
     }

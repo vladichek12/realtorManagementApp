@@ -49,6 +49,17 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public List<User> findAllRealtors() {
+        currentSession = SessionHandler.openTransaction();
+        String sqlQuery = "SELECT * FROM users WHERE user_role=:role";
+
+        Query query = currentSession.createSQLQuery(sqlQuery).addEntity(User.class).setParameter("role", "ROLE_REALTOR");
+        List<User> customers = query.list();
+
+        return customers;
+    }
+
+    @Override
     public User findUser(String login) {
         currentSession = SessionHandler.openTransaction();
         String sqlQuery = "SELECT FROM users WHERE email=:email";

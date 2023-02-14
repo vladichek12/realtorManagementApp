@@ -19,7 +19,7 @@ public class User {
     private String name;
 
     @Column(name = "user_role")
-    private Roles userRole;
+    private String userRole;
 
     @OneToMany(mappedBy="customer")
     private Set<Order> orders;
@@ -43,11 +43,11 @@ public class User {
         this.password = password;
     }
 
-    public Roles getUserRole() {
+    public String getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(Roles userRole) {
+    public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
 
@@ -59,7 +59,7 @@ public class User {
         this.id = id;
     }
 
-    public User(String email, String password, Roles userRole, String name) {
+    public User(String email, String password, String userRole, String name) {
         this.email = email;
         this.password = password;
         this.userRole = userRole;

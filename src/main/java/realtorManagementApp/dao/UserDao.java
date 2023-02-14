@@ -10,6 +10,8 @@ public interface UserDao {
 
     public List<User> findAllCustomers();
 
+    public List<User> findAllRealtors();
+
     public User findUser(String login);
 
     public void save(User user);
