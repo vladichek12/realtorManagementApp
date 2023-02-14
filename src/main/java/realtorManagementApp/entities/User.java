@@ -1,6 +1,7 @@
 package realtorManagementApp.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -18,7 +19,13 @@ public class User {
     private String name;
 
     @Column(name = "user_role")
-    private String userRole;
+    private Roles userRole;
+
+    @OneToMany(mappedBy="customer")
+    private Set<Order> orders;
+
+    @OneToMany(mappedBy="realtor")
+    private Set<Order> realtorOrders;
 
     public String getEmail() {
         return email;
@@ -36,11 +43,11 @@ public class User {
         this.password = password;
     }
 
-    public String getUserRole() {
+    public Roles getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(String userRole) {
+    public void setUserRole(Roles userRole) {
         this.userRole = userRole;
     }
 
@@ -52,10 +59,18 @@ public class User {
         this.id = id;
     }
 
-    public User(String email, String password, String userRole, String name) {
+    public User(String email, String password, Roles userRole, String name) {
         this.email = email;
         this.password = password;
         this.userRole = userRole;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 

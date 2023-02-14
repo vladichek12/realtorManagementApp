@@ -8,6 +8,8 @@ import java.util.List;
 public interface UserService {
     public List<User> findAll();
 
+    public List<User> findAllCustomers();
+
     public User findUser(String login) throws UserNotFoundException;
 
     public void save(User user);

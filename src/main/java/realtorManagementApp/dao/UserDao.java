@@ -8,6 +8,8 @@ public interface UserDao {
 
     public List<User> findAll();
 
+    public List<User> findAllCustomers();
+
     public User findUser(String login);
 
     public void save(User user);

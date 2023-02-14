@@ -35,6 +35,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAllCustomers() {
+        return userDao.findAllCustomers();
+    }
+
+    @Override
     public User findUser(String login) throws UserNotFoundException {
         return userDao.findUser(login);
     }
