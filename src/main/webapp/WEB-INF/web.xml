@@ -6,121 +6,25 @@
     <display-name>Phoneshop servlet api training</display-name>
 
 
-    <context-param>
-        <param-name>insertDemoData</param-name>
-        <param-value>true</param-value>
-    </context-param>
-    <listener>
-        <listener-class>com.es.phoneshop.web.listener.DemoDataServletContextListener</listener-class>
-    </listener>
+    <display-name>Realtor web-app</display-name>
     <servlet>
-        <servlet-name>productList</servlet-name>
-        <servlet-class>com.es.phoneshop.web.ProductListPageServlet</servlet-class>
+        <servlet-name>loginPageServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.LoginPageServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>productList</servlet-name>
-        <url-pattern>/products</url-pattern>
+        <servlet-name>loginPageServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>productDetails</servlet-name>
-        <servlet-class>com.es.phoneshop.web.ProductDetailsPageServlet</servlet-class>
+        <servlet-name>registrationServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.RegistrationPageServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>productDetails</servlet-name>
-        <url-pattern>/products/*</url-pattern>
+        <servlet-name>registrationServlet</servlet-name>
+        <url-pattern>/registration</url-pattern>
     </servlet-mapping>
-
-    <servlet>
-        <servlet-name>cart</servlet-name>
-        <servlet-class>com.es.phoneshop.web.CartPageServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>cart</servlet-name>
-        <url-pattern>/cart</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>addCartItem</servlet-name>
-        <servlet-class>com.es.phoneshop.web.CartItemAddServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>addCartItem</servlet-name>
-        <url-pattern>/cart/addItem/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>deleteCartItem</servlet-name>
-        <servlet-class>com.es.phoneshop.web.CartItemDeleteServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>deleteCartItem</servlet-name>
-        <url-pattern>/cart/deleteItem/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>miniCart</servlet-name>
-        <servlet-class>com.es.phoneshop.web.MiniCartServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>miniCart</servlet-name>
-        <url-pattern>/cart/mini</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>checkout</servlet-name>
-        <servlet-class>com.es.phoneshop.web.CheckoutPageServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>checkout</servlet-name>
-        <url-pattern>/checkout</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>overview</servlet-name>
-        <servlet-class>com.es.phoneshop.web.OverviewPageServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>overview</servlet-name>
-        <url-pattern>/order/overview/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>advancedSearch</servlet-name>
-        <servlet-class>com.es.phoneshop.web.AdvancedSearchPageServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>advancedSearch</servlet-name>
-        <url-pattern>/products/advancedSearch</url-pattern>
-    </servlet-mapping>
-
-    <filter>
-        <filter-name>dosProtectionTooManyRequests</filter-name>
-        <filter-class>com.es.phoneshop.web.filter.DosFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>dosProtectionTooManyRequests</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-
-    <error-page>
-        <location>/WEB-INF/pages/errorProductNotFound.jsp</location>
-        <exception-type>com.es.phoneshop.model.product.exception.ProductNotFoundException</exception-type>
-    </error-page>
-    <error-page>
-        <location>/WEB-INF/pages/error.jsp</location>
-        <error-code>500</error-code>
-    </error-page>
 
 </web-app>

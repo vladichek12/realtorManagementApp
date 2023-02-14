@@ -10,9 +10,8 @@
 <header>
     <a href="${pageContext.servletContext.contextPath}">
         <img src="${pageContext.servletContext.contextPath}/images/logo.svg"/>
-        PhoneShop
+        Realtor App
     </a>
-    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<jsp:include page="/cart/mini"/>
 </header>
 <main>
     <jsp:doBody/>
