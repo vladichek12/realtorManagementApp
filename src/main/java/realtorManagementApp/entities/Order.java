@@ -11,11 +11,11 @@ public class Order {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "orders")
     private User customer;
 
     @ManyToOne
-    @JoinColumn(name = "realtor_id")
+    @JoinColumn(name = "realtorOrders")
     private User realtor;
 
     @OneToOne
@@ -60,7 +60,7 @@ public class Order {
 
     public Order(User customer, User realtor, Address address) {
         this.customer = customer;
-        this.realtor = realtor;
+       // this.realtor = realtor;
         this.address = address;
     }
 }

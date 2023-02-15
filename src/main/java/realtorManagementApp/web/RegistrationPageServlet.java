@@ -2,6 +2,7 @@ package realtorManagementApp.web;
 
 
 import com.google.common.hash.Hashing;
+import realtorManagementApp.entities.Roles;
 import realtorManagementApp.entities.User;
 import realtorManagementApp.exceptions.UserNotFoundException;
 import realtorManagementApp.services.UserService;
@@ -59,7 +60,7 @@ public class RegistrationPageServlet extends HttpServlet {
                     Hashing.
                             sha256().
                             hashString(password, StandardCharsets.UTF_8).
-                            toString(), "aaa", request.getParameter("name"));
+                            toString(), Roles.ROLE_USER.toString(), request.getParameter("name"));//тут использовал  енам этот
             userAlreadyExists.setEmail(request.getParameter("name"));
             userService.save(userAlreadyExists);
             response.sendRedirect(String.format("%s/products", request.getContextPath()));

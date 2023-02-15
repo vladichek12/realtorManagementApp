@@ -7,11 +7,11 @@
 
 
     <display-name>Realtor web-app</display-name>
+
     <servlet>
         <servlet-name>loginPageServlet</servlet-name>
         <servlet-class>realtorManagementApp.web.LoginPageServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>loginPageServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -21,10 +21,18 @@
         <servlet-name>registrationServlet</servlet-name>
         <servlet-class>realtorManagementApp.web.RegistrationPageServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>registrationServlet</servlet-name>
         <url-pattern>/registration</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminPageServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.AdminPageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminPageServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
     </servlet-mapping>
 
 </web-app>
