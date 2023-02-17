@@ -1,7 +1,13 @@
 package realtorManagementApp.web;
 
+import realtorManagementApp.entities.Order;
+import realtorManagementApp.entities.Room;
 import realtorManagementApp.entities.User;
+import realtorManagementApp.services.OrderService;
+import realtorManagementApp.services.RoomService;
 import realtorManagementApp.services.UserService;
+import realtorManagementApp.services.impl.OrderServiceImpl;
+import realtorManagementApp.services.impl.RoomServiceImpl;
 import realtorManagementApp.services.impl.UserServiceImpl;
 
 import javax.servlet.ServletConfig;
@@ -12,14 +18,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class AdminPageServlet extends HttpServlet {
+public class AdminOrderPageServlet extends HttpServlet {
+    private OrderService orderService;
     private UserService userService;
-    private List<User> customers;
-    private List<User> realtors;
+    private List<Order> orders;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        orderService = OrderServiceImpl.getInstance();
         userService = UserServiceImpl.getInstance();
     }
 
@@ -29,15 +36,17 @@ public class AdminPageServlet extends HttpServlet {
             response.sendRedirect(String.format("%s/login", request.getContextPath()));
             return;
         }
-        customers = userService.findAllCustomers();
-        realtors = userService.findAllRealtors();
-        request.setAttribute("realtors", realtors);
-        request.setAttribute("customers", customers);
-        request.getRequestDispatcher("/WEB-INF/pages/adminPage.jsp").forward(request, response);
+        orders = orderService.findAll();
+        request.setAttribute("orders",orders);
+        request.getServletContext().getRequestDispatcher("/WEB-INF/pages/admin/adminOrdersPage.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/pages/loginPage.jsp").forward(request, response);
+        int id = Integer.parseInt(request.getParameter("orderId"));
+        Order order = new Order(orderService.findById(id));
+        orderService.delete(order);
+        response.sendRedirect("adminOrders");
     }
+
 }

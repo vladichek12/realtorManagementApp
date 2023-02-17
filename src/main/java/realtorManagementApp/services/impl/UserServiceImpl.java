@@ -53,6 +53,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserById(Integer id) throws UserNotFoundException {
+        return userDao.findUserById(id);
+    }
+
+    @Override
     public boolean userIsValidated(HttpServletRequest request, HttpServletResponse response) throws IOException {
         return request.getSession().getAttribute("currentUser") != null;
     }

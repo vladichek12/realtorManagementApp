@@ -53,6 +53,17 @@ public class Order {
     public Order() {
     }
 
+    public Order(Order order) {
+        this.id = order.id;
+        this.realtor = order.realtor;
+        this.room = order.room;
+    }
+
+    public Order(User realtor, Room room) {
+        this.realtor = realtor;
+        this.room = room;
+    }
+
     public Order(User customer, User realtor, Address address) {
         //this.customer = customer;
         // this.realtor = realtor;

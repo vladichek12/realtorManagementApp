@@ -24,12 +24,39 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>adminPageServlet</servlet-name>
-        <servlet-class>realtorManagementApp.web.AdminPageServlet</servlet-class>
+        <servlet-name>adminCustomerPageServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.AdminCustomerPageServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>adminPageServlet</servlet-name>
-        <url-pattern>/admin</url-pattern>
+        <servlet-name>adminCustomerPageServlet</servlet-name>
+        <url-pattern>/adminCustomers</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminRealtorsPageServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.AdminRealtorPageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminRealtorsPageServlet</servlet-name>
+        <url-pattern>/adminRealtors</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminOrderPageServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.AdminOrderPageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminOrderPageServlet</servlet-name>
+        <url-pattern>/adminOrders</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminAddOrderServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.AdminAddOrderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminAddOrderServlet</servlet-name>
+        <url-pattern>/adminAddOrder/*</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -49,6 +76,9 @@
         <servlet-name>addRoomServlet</servlet-name>
         <url-pattern>/user/*</url-pattern>
     </servlet-mapping>
+
+
+
 
 
     <error-page>

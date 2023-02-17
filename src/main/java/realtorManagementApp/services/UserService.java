@@ -17,7 +17,10 @@ public interface UserService {
 
     public User findUser(String login) throws UserNotFoundException;
 
+    public User findUserById(Integer id) throws UserNotFoundException;
+
     public boolean userIsValidated(HttpServletRequest request, HttpServletResponse response) throws IOException;
+
 
     public void save(User user);
 

@@ -66,6 +66,14 @@ public class User {
         this.name = name;
     }
 
+    public User(User user){
+        this.email = user.getEmail();
+        this.id = user.getId();
+        this.userRole = user.getUserRole();
+        this.password = user.getPassword();
+        this.name = user.getName();
+    }
+
     public String getName() {
         return name;
     }

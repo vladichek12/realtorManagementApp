@@ -76,6 +76,21 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User findUserById(Integer id) {
+        currentSession = SessionHandler.openTransaction();
+        String sqlQuery = "SELECT * FROM users WHERE id=:id";
+
+        Query query = currentSession.createSQLQuery(sqlQuery).addEntity(User.class);
+        query.setParameter("id", id);
+
+        Optional<User> user = query.stream().findFirst();
+        if (user.isEmpty()) {
+            throw new UserNotFoundException(String.format("No user with such id found:%s", id));
+        }
+        return user.get();
+    }
+
+    @Override
     public void save(User user) {
         currentSession = SessionHandler.openTransaction();
         currentSession.save(user);
