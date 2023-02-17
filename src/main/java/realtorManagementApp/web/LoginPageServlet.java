@@ -17,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 public class LoginPageServlet extends HttpServlet {
     private final String LOGIN_REQUEST_PARAMETER = "login";
     private final String PASSWORD_REQUEST_PARAMETER = "password";
+    private final String NAME_REQUEST_PARAMETER = "name";
     private final String ERROR_ATTRIBUTE = "error";
     private final String INVALID_LOGIN_OR_PASSWORD_MESSAGE = "Invalid login/password! Please check the data!";
     private final String INVALID_LOGIN_MESSAGE = "Invalid login! Try again please!";
@@ -37,12 +38,13 @@ public class LoginPageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = null, password = null;
         try {
             if (
-                    request.getParameter(LOGIN_REQUEST_PARAMETER) == null ||
-                            request.getParameter(PASSWORD_REQUEST_PARAMETER) == null ||
-                            request.getParameter(LOGIN_REQUEST_PARAMETER).isEmpty() ||
-                            request.getParameter(PASSWORD_REQUEST_PARAMETER).isEmpty()) {
+                    (email = request.getParameter(LOGIN_REQUEST_PARAMETER)) == null ||
+                            (password = request.getParameter(PASSWORD_REQUEST_PARAMETER)) == null ||
+                            email.isEmpty() ||
+                            password.isEmpty()) {
                 throw new IllegalArgumentException(INVALID_LOGIN_OR_PASSWORD_MESSAGE);
             }
             User authenticatedUser = userDao.findUser(request.getParameter(LOGIN_REQUEST_PARAMETER));
@@ -51,7 +53,8 @@ public class LoginPageServlet extends HttpServlet {
                     hashString(request.getParameter(PASSWORD_REQUEST_PARAMETER), StandardCharsets.UTF_8).
                     toString().
                     equals(authenticatedUser.getPassword())) {
-                response.sendRedirect(String.format("%s/home", request.getContextPath()));
+                request.getSession().setAttribute("currentUser", authenticatedUser);
+                response.sendRedirect(String.format("%s/user", request.getContextPath()));
                 return;
             } else {
                 request.setAttribute(ERROR_ATTRIBUTE, INVALID_PASSWORD_MESSAGE);

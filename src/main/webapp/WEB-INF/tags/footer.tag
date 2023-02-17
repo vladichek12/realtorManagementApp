@@ -1,5 +1,5 @@
 <%@ tag trimDirectiveWhitespaces="true" %>
 
 <p>
-    (c) Expert-Soft
+    (c) Vlados
 </p>

@@ -2,7 +2,6 @@ package realtorManagementApp.entities;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -11,16 +10,12 @@ public class Order {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "orders")
-    private User customer;
-
-    @ManyToOne
-    @JoinColumn(name = "realtorOrders")
+    @JoinColumn(name = "realtor_id")
     private User realtor;
 
     @OneToOne
-    @JoinColumn(name = "address_id")
-    private Address address;
+    @JoinColumn(name = "room_id")
+    private Room room;
 
     public User getRealtor() {
         return realtor;
@@ -31,12 +26,12 @@ public class Order {
     }
 
 
-    public Address getAddress() {
-        return address;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     public Long getId() {
@@ -47,20 +42,20 @@ public class Order {
         this.id = id;
     }
 
-    public User getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(User customer) {
-        this.customer = customer;
-    }
+//    public User getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(User customer) {
+//        this.customer = customer;
+//    }
 
     public Order() {
     }
 
     public Order(User customer, User realtor, Address address) {
-        this.customer = customer;
-       // this.realtor = realtor;
-        this.address = address;
+        //this.customer = customer;
+        // this.realtor = realtor;
+        this.room = room;
     }
 }

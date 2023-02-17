@@ -6,6 +6,9 @@ import realtorManagementApp.entities.User;
 import realtorManagementApp.exceptions.UserNotFoundException;
 import realtorManagementApp.services.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
@@ -47,6 +50,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUser(String login) throws UserNotFoundException {
         return userDao.findUser(login);
+    }
+
+    @Override
+    public boolean userIsValidated(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return request.getSession().getAttribute("currentUser") != null;
     }
 
     @Override

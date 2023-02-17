@@ -2,7 +2,7 @@ package realtorManagementApp.web;
 
 
 import com.google.common.hash.Hashing;
-import realtorManagementApp.entities.Roles;
+import realtorManagementApp._enum.Roles;
 import realtorManagementApp.entities.User;
 import realtorManagementApp.exceptions.UserNotFoundException;
 import realtorManagementApp.services.UserService;
@@ -63,7 +63,7 @@ public class RegistrationPageServlet extends HttpServlet {
                             toString(), Roles.ROLE_USER.toString(), request.getParameter("name"));//тут использовал  енам этот
             userAlreadyExists.setEmail(request.getParameter("name"));
             userService.save(userAlreadyExists);
-            response.sendRedirect(String.format("%s/products", request.getContextPath()));
+            response.sendRedirect(String.format("%s/user", request.getContextPath()));
             return;
         } catch (IllegalArgumentException iae) {
             request.setAttribute(ERROR_ATTRIBUTE, iae.getMessage());

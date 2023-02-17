@@ -8,6 +8,7 @@ import realtorManagementApp.exceptions.UserNotFoundException;
 import realtorManagementApp.session.SessionHandler;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
     private static volatile UserDao instance;
@@ -62,16 +63,16 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User findUser(String login) {
         currentSession = SessionHandler.openTransaction();
-        String sqlQuery = "SELECT FROM users WHERE email=:email";
+        String sqlQuery = "SELECT * FROM users WHERE email=:email";
 
         Query query = currentSession.createSQLQuery(sqlQuery).addEntity(User.class);
         query.setParameter("email", login);
 
-        User user = (User) query.uniqueResult();
-        if (user == null) {
+        Optional<User> user = query.stream().findFirst();
+        if (user.isEmpty()) {
             throw new UserNotFoundException(String.format("No user with such login found:%s", login));
         }
-        return user;
+        return user.get();
     }
 
     @Override

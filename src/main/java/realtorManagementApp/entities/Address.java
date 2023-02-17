@@ -18,18 +18,18 @@ public class Address {
     @Column(name = "house")
     private Integer houseNumber;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "address")
-    private Order order;
+    //    @OneToOne(cascade = CascadeType.ALL, mappedBy = "address")
+//    private Order order;
     @OneToOne(mappedBy = "address")
     private Room room;
 
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
+//    public Order getOrder() {
+//        return order;
+//    }
+//
+//    public void setOrder(Order order) {
+//        this.order = order;
+//    }
 
     public Long getId() {
         return id;

@@ -8,11 +8,24 @@ import realtorManagementApp.session.SessionHandler;
 import java.util.List;
 
 public class RoomDaoImpl implements RoomDao {
+    private static volatile RoomDao instance;
+
+    public static RoomDao getInstance() {
+        RoomDao localInstance = instance;
+        if (localInstance == null) {
+            synchronized (RoomDao.class) {
+                localInstance = instance;
+                if (localInstance == null)
+                    instance = localInstance = new RoomDaoImpl();
+            }
+        }
+        return localInstance;
+    }
+
+    private RoomDaoImpl() {
+    }
 
     private Session currentSession;
-
-    public RoomDaoImpl() {
-    }
 
     @Override
     public List<Room> findAll() {
