@@ -1,4 +1,4 @@
-package realtorManagementApp.entities;
+package realtorManagementApp._enum;
 
 public enum Roles {
     ROLE_USER("ROLE_USER"),

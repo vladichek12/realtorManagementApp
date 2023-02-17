@@ -21,10 +21,10 @@ public class User {
     @Column(name = "user_role")
     private String userRole;
 
-    @OneToMany(mappedBy="customer")
-    private Set<Order> orders;
+//    @OneToMany(mappedBy="customer")
+//    private Set<Order> orders;
 
-    @OneToMany(mappedBy="realtor")
+    @OneToMany(mappedBy = "realtor")
     private Set<Order> realtorOrders;
 
     public String getEmail() {
