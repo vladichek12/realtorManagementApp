@@ -14,6 +14,8 @@ public interface UserDao {
 
     public User findUser(String login);
 
+    public User findUserById(Integer id);
+
     public void save(User user);
 
     public void delete(User user);

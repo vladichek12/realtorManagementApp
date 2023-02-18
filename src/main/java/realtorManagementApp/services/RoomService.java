@@ -8,6 +8,8 @@ import java.util.List;
 public interface RoomService {
     public List<Room> findAll();
 
+    public Room findById(Integer id);
+
     public List<Room> findAllUserRooms(User user);
 
     public void save(Room room);

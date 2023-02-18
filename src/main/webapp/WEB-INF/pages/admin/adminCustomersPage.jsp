@@ -10,41 +10,34 @@
         <script src="js/sort.js"></script>
     </head>
     <body>
+    <ul>
+        <li><a class="active">Customers</a></li>
+        <li><a href="adminRealtors">Realtors</a></li>
+        <li><a href="adminOrders">Orders</a></li>
+    </ul>
     <div>
-        <div class="wrap">
             <div>Customers</div>
             <table>
                 <tr>
                     <td>Name</td>
                     <td>Email</td>
+                    <td>Action</td>
                 </tr>
                 <tbody>
                 <c:forEach var ="element" items = "${customers}">
                     <tr>
                         <td>${element.getName()}</td>
                         <td>${element.getEmail()}</td>
+                        <td><form method="post" action="">
+                            <button type="submit" name="userId" value="${element.getId()}">delete</button>
+                        </form>
+                        </td>
+
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
 
-        </div>
-        <div class="wrap">
-            <div>Realtors</div>
-            <table>
-                <tr>
-                    <td>Name</td>
-                    <td>Email</td>
-                </tr>
-                <tbody>
-                <c:forEach var ="element" items = "${realtors}">
-                    <tr>
-                        <td>${element.getName()}</td>
-                        <td>${element.getEmail()}</td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
         </div>
     </div>
     </body>

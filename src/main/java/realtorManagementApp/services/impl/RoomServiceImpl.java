@@ -36,6 +36,11 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public Room findById(Integer id) {
+        return roomDao.findById(id);
+    }
+
+    @Override
     public List<Room> findAllUserRooms(User user) {
         return findAll().stream().
                 filter(room -> user.getId().equals(room.getUser().getId())).
