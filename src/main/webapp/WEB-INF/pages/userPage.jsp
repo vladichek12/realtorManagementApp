@@ -34,17 +34,16 @@
                         <c:forEach var="_room" items="${currentUserRooms}">
                             <c:if test="${_room.getId().equals(room.getId())}">
                                 <td>
-                                    <form method="post" action="${pageContext.servletContext.contextPath}/deleteRoom">
-                                        <button>
-                                            Delete
-                                        </button>
-                                    </form>
+                                    <button form="deleteForm"
+                                            formaction="${pageContext.servletContext.contextPath}/deleteRoom/${room.getId()}">
+                                        Delete
+                                    </button>
                                     <br/>
-                                    <form method="post" action="${pageContext.servletContext.contextPath}/updateRoom">
-                                        <button>
-                                            Update
-                                        </button>
-                                    </form>
+                                    <br/>
+                                    <button form="updateForm"
+                                            formaction="${pageContext.servletContext.contextPath}/updateRoom/${room.getId()}">
+                                        Update
+                                    </button>
                                 </td>
                             </c:if>
                         </c:forEach>
@@ -62,5 +61,7 @@
             Add new room
         </button>
     </form>
+    <form id="deleteForm" method="post"></form>
+    <form id="updateForm" method="get"></form>
     </p>
 </tags:master>

@@ -57,6 +57,8 @@ public class UserDaoImpl implements UserDao {
         Query query = currentSession.createSQLQuery(sqlQuery).addEntity(User.class).setParameter("role", "ROLE_REALTOR");
         List<User> customers = query.list();
 
+        SessionHandler.closeTransactionSession();
+
         return customers;
     }
 
@@ -70,8 +72,10 @@ public class UserDaoImpl implements UserDao {
 
         Optional<User> user = query.stream().findFirst();
         if (user.isEmpty()) {
+            SessionHandler.closeTransactionSession();
             throw new UserNotFoundException(String.format("No user with such login found:%s", login));
         }
+        SessionHandler.closeTransactionSession();
         return user.get();
     }
 
@@ -85,8 +89,10 @@ public class UserDaoImpl implements UserDao {
 
         Optional<User> user = query.stream().findFirst();
         if (user.isEmpty()) {
+            SessionHandler.closeTransactionSession();
             throw new UserNotFoundException(String.format("No user with such id found:%s", id));
         }
+        SessionHandler.closeTransactionSession();
         return user.get();
     }
 

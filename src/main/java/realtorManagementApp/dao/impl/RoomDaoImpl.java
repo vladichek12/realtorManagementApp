@@ -51,6 +51,7 @@ public class RoomDaoImpl implements RoomDao {
         if (room.isEmpty()) {
             throw new EntityNotFoundException(String.format("No room with such id found:%s", id));
         }
+        SessionHandler.closeTransactionSession();
         return room.get();
     }
 

@@ -61,7 +61,6 @@ public class RegistrationPageServlet extends HttpServlet {
                             sha256().
                             hashString(password, StandardCharsets.UTF_8).
                             toString(), Roles.ROLE_USER.toString(), request.getParameter("name"));//тут использовал  енам этот
-            userAlreadyExists.setEmail(request.getParameter("name"));
             userService.save(userAlreadyExists);
             response.sendRedirect(String.format("%s/user", request.getContextPath()));
             return;
