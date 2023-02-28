@@ -4,31 +4,33 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
 <tags:master pageTitle="Welcome!">
-    <h2>
-        Registration
-    </h2>
-    <c:if test="${not empty error}">
-        <p class="error">
-            There were some problems while registration!
-        <div class="error">
-                ${error}
-        </div>
-        </p>
-    </c:if>
-    <p>
-    <form method="post" action="${pageContext.servletContext.contextPath}/registration">
-        <p>
-            Enter your name:<input name="name" value="${param.name}" type="text"/>
-        </p>
-        <p>
-            Enter your login:<input name="login" value="${param.login}" type="text"/>
-        </p>
-        <p>
-            Enter your password:<input name="password" value="${param.password}" type="text"/>
-        </p>
-        <p>
-            <button>Register</button>
-        </p>
-    </form>
-    </p>
+    <head>
+        <title>Realtor agency</title>
+        <link rel="stylesheet" href="styles/admin.css">
+        <script src="js/sort.js"></script>
+    </head>
+    <div class="form">
+        <h1 class="title">
+            Registration
+        </h1>
+        <c:if test="${not empty error}">
+            <p class="error">
+                There were some problems while registration!
+            <div class="error">
+                    ${error}
+            </div>
+            </p>
+        </c:if>
+        <form method="post" action="${pageContext.servletContext.contextPath}/registration">
+            <p>Enter your name:</p>
+            <input name="name" value="${param.name}" type="text"/>
+
+            <p>Enter your login:</p>
+            <input name="login" value="${param.login}" type="text"/>
+            <p>Enter your password:</p>
+            <input name="password" value="${param.password}" type="text"/>
+            <button class="submit-button">Register</button>
+        </form>
+    </div>
+
 </tags:master>

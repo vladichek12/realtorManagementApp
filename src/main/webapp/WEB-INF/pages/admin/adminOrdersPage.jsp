@@ -5,7 +5,7 @@
 <tags:master pageTitle="Realtor management app">
     <html>
     <head>
-        <title>Library</title>
+        <title>Realtor agency</title>
         <link rel="stylesheet" href="styles/admin.css">
         <script src="js/sort.js"></script>
     </head>
@@ -16,13 +16,13 @@
         <li><a class="active">Orders</a></li>
     </ul>
     <div>
-        <div>Orders</div>
+        <div class="title">Orders</div>
         <form method="get" action="${pageContext.servletContext.contextPath}/adminAddOrder">
-            <button>
-                Add new
+            <button class="button">
+                +
             </button>
         </form>
-        <table>
+        <table class="main-table">
             <tr>
                 <td>Realtor</td>
                 <td>Room</td>
@@ -33,8 +33,11 @@
                 <tr>
                     <td>${element.getRealtor().getName()}</td>
                     <td>${element.getRoom().getAddress().toString()}</td>
-                    <td><form method="post" action="">
-                        <button type="submit" name="orderId" value="${element.getId()}">delete</button>
+                    <td>
+                        <form method="post" action="">
+                        <button class="table-button" type="submit" name="userId" value="${element.getId()}">
+                            X
+                        </button>
                     </form>
                     </td>
 

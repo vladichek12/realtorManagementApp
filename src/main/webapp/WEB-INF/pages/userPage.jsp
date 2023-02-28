@@ -3,15 +3,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <tags:master pageTitle="Realtor management app">
+    <html>
     <head>
-        <title>Library</title>
-        <link rel="stylesheet" href="styles/user.css">
+        <title>Realtor agency</title>
+        <link rel="stylesheet" href="styles/admin.css">
         <script src="js/sort.js"></script>
     </head>
-    <p>
+    <body>
+    <ul>
+        <li><a class="active">Rooms</a></li>
+    </ul>
     <div class="wrap">
-        <div>Rooms</div>
-        <table>
+        <div class="title">All available rooms</div>
+        <form method="get" action="${pageContext.servletContext.contextPath}/user/addRoom">
+            <button class="button">
+                +
+            </button>
+        </form>
+        <table class="main-table">
             <tr>
                 <td>City</td>
                 <td>Street</td>
@@ -54,13 +63,6 @@
             </tbody>
         </table>
     </div>
-    </p>
-    <br>
-    <p>
-    <form method="get" action="${pageContext.servletContext.contextPath}/user/addRoom">
-        <button>
-            Add new room
-        </button>
-    </form>
-    </p>
+    </body>
+    </html>
 </tags:master>

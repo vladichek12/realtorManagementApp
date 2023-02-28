@@ -1,3 +1,4 @@
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -23,5 +24,133 @@ li a:hover:not(.active) {
 }
 
 .active {
-    background-color: #04AA6D;
+    background-color: gray;
+}
+
+.title{
+    font-size: 35px;
+    text-align: center;
+}
+
+.main-table{
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    font-size: 25px;
+    text-align: center;
+}
+
+
+.form{
+    background-color: white;
+    width: 30%;
+    margin-top: 20px;
+    margin-left: 35%;
+    margin-right: 35%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+    border: 2px black solid;
+    border-radius: 7%;
+}
+input,select{
+    border: 3px solid black;
+    border-radius: 4px;
+}
+input,p,select{
+    margin-left: 30%;
+    width: 40%;
+}
+.or{
+    margin-left: 47%;
+    width: 40%;
+}
+
+p{
+    padding-top: 10px;
+}
+
+
+
+.submit-button{
+    margin-top: 5%;
+    width: 30%;
+    margin-left: 35%;
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+    color: black;
+    background-color: white;
+    font-weight: 700;
+    text-decoration: none;
+    user-select: none;
+    padding: .5em 2em;
+    outline: none;
+    border: 3px solid black;
+    border-radius: 1px;
+    transition: 0.2s;
+    border-radius: 10px;
+}
+
+.submit-button:hover {
+    background-color: black; /* Green */
+    color: white;
+}
+
+.sign-in-button{
+    margin-top: 5%;
+    width: 26%;
+    margin-left: 37%;
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+    color: black;
+    background-color: white;
+    font-weight: 700;
+    text-decoration: none;
+    user-select: none;
+    padding: .5em 2em;
+    outline: none;
+    border: 3px solid black;
+    border-radius: 1px;
+    transition: 0.2s;
+    border-radius: 10px;
+}
+
+.sign-in-button:hover {
+    background-color: black; /* Green */
+    color: white;
+}
+
+.button {
+    margin-left: 20%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: inline-block;
+}
+
+.button:hover {
+    background-color: black; /* Green */
+    color: white;
+}
+
+.table-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: inline-block;
+}
+
+.table-button:hover {
+    background-color: black; /* Green */
+    color: white;
+}
+
+.table-img{
+    width: 30px;
+    height: 30px;
+    padding-right: 5px;
 }
