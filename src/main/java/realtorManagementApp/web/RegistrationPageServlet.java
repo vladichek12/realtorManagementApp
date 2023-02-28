@@ -60,7 +60,7 @@ public class RegistrationPageServlet extends HttpServlet {
                     Hashing.
                             sha256().
                             hashString(password, StandardCharsets.UTF_8).
-                            toString(), Roles.ROLE_USER.toString(), request.getParameter("name"));//тут использовал  енам этот
+                            toString(), Roles.ROLE_USER.toString(), request.getParameter("name"));
             userService.save(userAlreadyExists);
             response.sendRedirect(String.format("%s/user", request.getContextPath()));
             return;
