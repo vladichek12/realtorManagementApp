@@ -11,7 +11,7 @@
 <p>${label}<span style="color: darkred">*</span></p>
 <td>
     <c:set var="inputError" value="${possibleErrors[name]}"/>
-    <input name="${name}" value="${param[name]}"/>
+    <input name="${name}" value="${room[name]}"/>
     <c:if test="${not empty inputError}">
         <p class="error">${inputError}</p>
     </c:if>

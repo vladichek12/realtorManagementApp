@@ -1,13 +1,9 @@
 package realtorManagementApp.web;
 
 import realtorManagementApp.entities.Order;
-import realtorManagementApp.entities.Room;
-import realtorManagementApp.entities.User;
 import realtorManagementApp.services.OrderService;
-import realtorManagementApp.services.RoomService;
 import realtorManagementApp.services.UserService;
 import realtorManagementApp.services.impl.OrderServiceImpl;
-import realtorManagementApp.services.impl.RoomServiceImpl;
 import realtorManagementApp.services.impl.UserServiceImpl;
 
 import javax.servlet.ServletConfig;
@@ -37,16 +33,15 @@ public class AdminOrderPageServlet extends HttpServlet {
             return;
         }
         orders = orderService.findAll();
-        request.setAttribute("orders",orders);
+        request.setAttribute("orders", orders);
         request.getServletContext().getRequestDispatcher("/WEB-INF/pages/admin/adminOrdersPage.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("orderId"));
+        int id = Integer.parseInt(request.getParameter("userId"));
         Order order = new Order(orderService.findById(id));
         orderService.delete(order);
         response.sendRedirect("adminOrders");
     }
-
 }

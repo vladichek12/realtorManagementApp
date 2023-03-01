@@ -8,12 +8,15 @@
         <title>Realtor agency</title>
         <link rel="stylesheet" href="styles/admin.css">
         <script src="js/sort.js"></script>
+        <style>
+            <%@include file="/styles/admin.css"%>
+        </style>
     </head>
     <body>
     <ul>
-        <li><a href="adminCustomers">Customers</a></li>
+        <li><a href="${pageContext.servletContext.contextPath}/admin/customers">Customers</a></li>
         <li><a class="active">Realtors</a></li>
-        <li><a href="adminOrders">Orders</a></li>
+        <li><a href="${pageContext.servletContext.contextPath}/admin/orders">Orders</a></li>
     </ul>
     <div>
         <div class="title">Realtors</div>
@@ -24,25 +27,21 @@
                 <td>Action</td>
             </tr>
             <tbody>
-            <c:forEach var ="element" items = "${realtors}">
+            <c:forEach var="element" items="${realtors}">
                 <tr>
                     <td>${element.getName()}</td>
                     <td>${element.getEmail()}</td>
                     <td>
                         <form method="post" action="">
-                        <button class="table-button" type="submit" name="userId" value="${element.getId()}">
-                            X
-                        </button>
-                    </form>
+                            <button class="table-button-delete" type="submit" name="userId" value="${element.getId()}">
+                                <img class="table-img" src="${pageContext.servletContext.contextPath}/images/X.svg"/>
+                            </button>
+                        </form>
                     </td>
-
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-
     </div>
     </div>
-    </body>
-    </html>
 </tags:master>

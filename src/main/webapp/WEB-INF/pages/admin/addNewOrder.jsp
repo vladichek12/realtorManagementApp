@@ -14,22 +14,22 @@
         <form method="post" action="adminAddOrder">
 
             <p>Realtor</p>
-            <select id = "realtors"  name = "realtors" required>
-                <c:forEach var ="element" items = "${realtors}">
-                    <option  value = ${element.getId()} >${element.getName()}</option>
+            <select id="realtors" name="realtors" required>
+                <c:forEach var="element" items="${realtors}">
+                    <option value=${element.getId()}>${element.getName()}</option>
                 </c:forEach>
             </select>
             <br>
 
             <p>Room</p>
-            <select id = "rooms"   name = "rooms" required>
-                <c:forEach var ="element" items = "${rooms}">
-                    <option  value = ${element.getId()} >${element.getAddress().toString()}</option>
+            <select id="rooms" name="rooms" required>
+                <c:forEach var="element" items="${rooms}">
+                    <option value=${element.getId()}>${element.getAddress().toString()}</option>
                 </c:forEach>
             </select>
             <br>
 
-            <input class="submit-button" type = "submit" value = "Submit" onclick="multipleChoiseLimiter()"/>
+            <input class="submit-button" type="submit" value="Submit" onclick="multipleChoiseLimiter()"/>
         </form>
     </div>
 

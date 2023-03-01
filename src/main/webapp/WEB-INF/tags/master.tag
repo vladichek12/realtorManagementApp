@@ -7,5 +7,5 @@
 <main>
     <jsp:doBody/>
 </main>
-<tags:footer/>
+<%--<tags:footer/>--%>
 </html>

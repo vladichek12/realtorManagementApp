@@ -16,8 +16,10 @@
     <div class="wrap">
         <div class="title">All available rooms</div>
         <form method="get" action="${pageContext.servletContext.contextPath}/user/addRoom">
-            <button class="button">
-                +
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            &emsp;
+            <button class="table-button-add">
+                <img class="table-img" src="${pageContext.servletContext.contextPath}/images/Plus.svg"/>
             </button>
         </form>
         <table class="main-table">
@@ -42,18 +44,30 @@
                     <c:if test="${not empty currentUserRooms}">
                         <c:forEach var="_room" items="${currentUserRooms}">
                             <c:if test="${_room.getId().equals(room.getId())}">
-                                <td>
-                                    <form method="post" action="${pageContext.servletContext.contextPath}/deleteRoom">
-                                        <button>
-                                            Delete
-                                        </button>
-                                    </form>
-                                    <br/>
-                                    <form method="post" action="${pageContext.servletContext.contextPath}/updateRoom">
-                                        <button>
-                                            Update
-                                        </button>
-                                    </form>
+                                <td class="button-td">
+                                    <ul class="checkbox-ul">
+                                        <li class="table-li1">
+                                            <form method="post"
+                                                  action="${pageContext.servletContext.contextPath}/deleteRoom/${room.id}">
+                                                <button class="table-button-delete">
+                                                    <img class="table-img"
+                                                         src="${pageContext.servletContext.contextPath}/images/X.svg"/>
+                                                </button>
+                                            </form>
+                                        </li>
+
+                                        <li class="table-li2">
+                                            <form method="get"
+                                                  action="${pageContext.servletContext.contextPath}/updateRoom/${room.id}">
+                                                <button class="table-button-update">
+                                                    <img class="table-img"
+                                                         src="${pageContext.servletContext.contextPath}/images/update.svg"/>
+                                                </button>
+                                            </form>
+                                        </li>
+
+                                    </ul>
+
                                 </td>
                             </c:if>
                         </c:forEach>
