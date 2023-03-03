@@ -40,10 +40,20 @@ public class RegistrationPageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User userAlreadyExists;
-        String login = null, password = null;
+        String login = null, password = null, role = null;
         try {
             login = request.getParameter(LOGIN_REQUEST_PARAMETER);
             password = request.getParameter(PASSWORD_REQUEST_PARAMETER);
+            switch (request.getParameter("role")) {
+                case "realtor": {
+                    role = Roles.ROLE_REALTOR.toString();
+                    break;
+                }
+                case "customer": {
+                    role = Roles.ROLE_USER.toString();
+                    break;
+                }
+            }
             if (
                     login == null ||
                             request.getParameter(PASSWORD_REQUEST_PARAMETER) == null ||
@@ -60,9 +70,10 @@ public class RegistrationPageServlet extends HttpServlet {
                     Hashing.
                             sha256().
                             hashString(password, StandardCharsets.UTF_8).
-                            toString(), Roles.ROLE_USER.toString(), request.getParameter("name"));//тут использовал  енам этот
+                            toString(), role, request.getParameter("name"));
             userAlreadyExists.setEmail(request.getParameter("name"));
             userService.save(userAlreadyExists);
+            request.getSession().setAttribute("currentUser", userAlreadyExists);
             response.sendRedirect(String.format("%s/user", request.getContextPath()));
             return;
         } catch (IllegalArgumentException iae) {

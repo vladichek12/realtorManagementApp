@@ -1,5 +1,5 @@
 <%@ tag trimDirectiveWhitespaces="true" %>
 
 <p>
-    (c) Vlados
+    (c) footer
 </p>

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
-<%@ attribute name="room" required="true" type="realtorManagementApp.entities.Room" %>
+<%@ attribute name="address" required="true" type="realtorManagementApp.entities.Address" %>
 <%@ attribute name="name" required="true" %>
 <%@ attribute name="label" required="true" %>
 <%@ attribute name="possibleErrors" required="true" type="java.util.Map" %>
@@ -11,7 +11,7 @@
 <p>${label}<span style="color: darkred">*</span></p>
 <td>
     <c:set var="inputError" value="${possibleErrors[name]}"/>
-    <input name="${name}" value="${param[name]}"/>
+    <input name="${name}" value="${address[name]}"/>
     <c:if test="${not empty inputError}">
         <p class="error">${inputError}</p>
     </c:if>

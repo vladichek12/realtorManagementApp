@@ -54,7 +54,11 @@ public class LoginPageServlet extends HttpServlet {
                     toString().
                     equals(authenticatedUser.getPassword())) {
                 request.getSession().setAttribute("currentUser", authenticatedUser);
-                response.sendRedirect(String.format("%s/user", request.getContextPath()));
+                if (authenticatedUser.getUserRole().equals("ROLE_USER")) {
+                    response.sendRedirect(String.format("%s/user", request.getContextPath()));
+                } else {
+                    response.sendRedirect(String.format("%s/admin/customers", request.getContextPath()));
+                }
                 return;
             } else {
                 request.setAttribute(ERROR_ATTRIBUTE, INVALID_PASSWORD_MESSAGE);

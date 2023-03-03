@@ -1,7 +1,9 @@
 package realtorManagementApp.web;
 
 import realtorManagementApp.entities.User;
+import realtorManagementApp.services.RoomService;
 import realtorManagementApp.services.UserService;
+import realtorManagementApp.services.impl.RoomServiceImpl;
 import realtorManagementApp.services.impl.UserServiceImpl;
 
 import javax.servlet.ServletConfig;
@@ -14,12 +16,15 @@ import java.util.List;
 
 public class AdminRealtorPageServlet extends HttpServlet {
     private UserService userService;
-    private List<User> realtors;;
+    private RoomService roomService;
+    private List<User> realtors;
+    ;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         userService = UserServiceImpl.getInstance();
+        roomService = RoomServiceImpl.getInstance();
     }
 
     @Override
@@ -37,8 +42,9 @@ public class AdminRealtorPageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("userId"));
         User user = new User(userService.findUserById(id));
+        roomService.findAllUserRooms(user).
+                forEach(room -> roomService.delete(room));
         userService.delete(user);
         response.sendRedirect("adminRealtors");
     }
-
 }

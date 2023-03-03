@@ -29,6 +29,23 @@
             <input name="login" value="${param.login}" type="text"/>
             <p>Enter your password:</p>
             <input name="password" value="${param.password}" type="text"/>
+            </br>
+            <ul class="checkbox-ul">
+                <li class="li-text">
+                    <div>Customer</div>
+                </li>
+                <li class="li-text">
+                    <div>Realtor</div>
+                </li>
+            </ul>
+            <ul class="checkbox-ul">
+                <li class="checkbox-li"><input class="check" type="radio" id="customer" name="role" value="customer"
+                                               checked/></li>
+                <li class="checkbox-li"><input class="check" type="radio" id="realtor" name="role" value="realtor"/>
+                </li>
+            </ul>
+
+
             <button class="submit-button">Register</button>
         </form>
     </div>

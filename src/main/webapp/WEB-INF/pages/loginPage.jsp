@@ -20,24 +20,24 @@
             <p> Login:</p>
             <input name="login" value="${param.login}" type="text"/>
             <c:if test="${not empty error}">
-                <span class="error">
+                <p class="error">
                         ${error}
-                </span>
-                </c:if>
+                </p>
+            </c:if>
 
             <p>Password:</p>
             <input name="password" value="${param.password}" type="password"/>
             <c:if test="${not empty error}">
-                <span class="error">
+                <p class="error">
                         ${error}
-                </span>
-                </c:if>
+                </p>
+            </c:if>
             </br>
             </br>
             <button class="submit-button">Submit</button>
         </form>
         <br/>
-        <a class="or">or</a>
+        <div class="or">or</div>
         <br/>
         <form method="get" action="${pageContext.servletContext.contextPath}/registration">
             <button class="sign-in-button">
