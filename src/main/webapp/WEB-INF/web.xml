@@ -92,6 +92,30 @@
         <servlet-name>updateRoomServlet</servlet-name>
         <url-pattern>/updateRoom/*</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>logOutServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.LogOutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logOutServlet</servlet-name>
+        <url-pattern>/exit</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>infoServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.InfoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>infoServlet</servlet-name>
+        <url-pattern>/info</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>contactsServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.ContactsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>contactsServlet</servlet-name>
+        <url-pattern>/contacts</url-pattern>
+    </servlet-mapping>
 
 
     <filter>

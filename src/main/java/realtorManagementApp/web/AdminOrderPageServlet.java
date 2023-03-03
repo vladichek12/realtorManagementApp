@@ -42,6 +42,6 @@ public class AdminOrderPageServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("userId"));
         Order order = new Order(orderService.findById(id));
         orderService.delete(order);
-        response.sendRedirect("adminOrders");
+        response.sendRedirect(String.format("%s/admin/orders",request.getContextPath()));
     }
 }
