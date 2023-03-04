@@ -45,7 +45,7 @@ public class LoginPageServlet extends HttpServlet {
                             (password = request.getParameter(PASSWORD_REQUEST_PARAMETER)) == null ||
                             email.isEmpty() ||
                             password.isEmpty()) {
-                throw new IllegalArgumentException(new String(INVALID_LOGIN_OR_PASSWORD_MESSAGE.getBytes(),StandardCharsets.UTF_8));
+                throw new IllegalArgumentException(new String(INVALID_LOGIN_OR_PASSWORD_MESSAGE.getBytes(), StandardCharsets.UTF_8));
             }
             User authenticatedUser = userDao.findUser(request.getParameter(LOGIN_REQUEST_PARAMETER));
             if (Hashing.
@@ -54,17 +54,17 @@ public class LoginPageServlet extends HttpServlet {
                     toString().
                     equals(authenticatedUser.getPassword())) {
                 request.getSession().setAttribute("currentUser", authenticatedUser);
-                if (authenticatedUser.getUserRole().equals("ROLE_USER")) {
+                if (authenticatedUser.getUserRole().equals("ROLE_USER") || authenticatedUser.getUserRole().equals("ROLE_REALTOR")) {
                     response.sendRedirect(String.format("%s/user", request.getContextPath()));
                 } else {
                     response.sendRedirect(String.format("%s/admin/customers", request.getContextPath()));
                 }
                 return;
             } else {
-                request.setAttribute(ERROR_ATTRIBUTE, new String(INVALID_PASSWORD_MESSAGE.getBytes(),StandardCharsets.UTF_8));
+                request.setAttribute(ERROR_ATTRIBUTE, new String(INVALID_PASSWORD_MESSAGE.getBytes(), StandardCharsets.UTF_8));
             }
         } catch (UserNotFoundException unfe) {
-            request.setAttribute(ERROR_ATTRIBUTE, new String(INVALID_LOGIN_MESSAGE.getBytes(),StandardCharsets.UTF_8));
+            request.setAttribute(ERROR_ATTRIBUTE, new String(INVALID_LOGIN_MESSAGE.getBytes(), StandardCharsets.UTF_8));
         } catch (IllegalArgumentException iae) {
             request.setAttribute(ERROR_ATTRIBUTE, iae.getMessage());
         }

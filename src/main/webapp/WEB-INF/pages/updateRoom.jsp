@@ -2,7 +2,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<tags:master pageTitle="Realtor management app">
+<tags:master pageTitle="Realtor management app" word="Недвижимость">
 
     <head>
         <link rel="stylesheet" href="styles/user.css">
@@ -28,6 +28,12 @@
                                        possibleErrors="${possibleErrors}"></tags:roomStringFormUpdate>
 
             <tags:roomStringFormUpdate room="${room}" name="numberOfRooms" label="Number of rooms:"
+                                       possibleErrors="${possibleErrors}"></tags:roomStringFormUpdate>
+
+            <tags:roomStringFormUpdate room="${room}" name="description" label="Description:"
+                                       possibleErrors="${possibleErrors}"></tags:roomStringFormUpdate>
+
+            <tags:roomStringFormUpdate room="${room}" name="price" label="Price:"
                                        possibleErrors="${possibleErrors}"></tags:roomStringFormUpdate>
 
             <button class="submit-button">Submit</button>

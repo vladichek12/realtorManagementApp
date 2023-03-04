@@ -21,6 +21,7 @@ public class RegistrationPageServlet extends HttpServlet {
 
     private final String LOGIN_REQUEST_PARAMETER = "login";
     private final String PASSWORD_REQUEST_PARAMETER = "password";
+    private final String PHONE_REQUEST_PARAMETER = "phoneNumber";
     private final String ERROR_ATTRIBUTE = "error";
 
     private final String INVALID_LOGIN_OR_PASSWORD_MESSAGE = "Invalid login/password! Please check the data!";
@@ -34,13 +35,14 @@ public class RegistrationPageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().setAttribute("currentUser", null);
         request.getRequestDispatcher("/WEB-INF/pages/registration.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User userAlreadyExists;
-        String login = null, password = null, role = null;
+        String login = null, password = null, role = null, phoneNumber = null;
         try {
             login = request.getParameter(LOGIN_REQUEST_PARAMETER);
             password = request.getParameter(PASSWORD_REQUEST_PARAMETER);
@@ -66,11 +68,12 @@ public class RegistrationPageServlet extends HttpServlet {
             userAlreadyExists = userService.findUser(login);
             request.setAttribute(ERROR_ATTRIBUTE, "User with such login already exists!");
         } catch (UserNotFoundException unfe) {
+            phoneNumber = request.getParameter(PHONE_REQUEST_PARAMETER);
             userAlreadyExists = new User(login,
                     Hashing.
                             sha256().
                             hashString(password, StandardCharsets.UTF_8).
-                            toString(), role, request.getParameter("name"));
+                            toString(), role, request.getParameter("name"), phoneNumber);
             userAlreadyExists.setEmail(request.getParameter("name"));
             userService.save(userAlreadyExists);
             request.getSession().setAttribute("currentUser", userAlreadyExists);

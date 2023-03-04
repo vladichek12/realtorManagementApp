@@ -1,5 +1,6 @@
 package realtorManagementApp.web;
 
+import realtorManagementApp._enum.Statuses;
 import realtorManagementApp.entities.Address;
 import realtorManagementApp.entities.Room;
 import realtorManagementApp.entities.User;
@@ -43,24 +44,26 @@ public class AddRoomServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String city = null, street = null;
+        String city = null, street = null, description = null;
         int houseNumber = 0, numberOfRooms = 0;
-        long square = 0;
+        long square = 0, price = 0;
         Map<String, String> possibleErrors = new HashMap<>();
 
         city = addressService.checkParameterString("city", request, possibleErrors, city);
         street = addressService.checkParameterString("street", request, possibleErrors, street);
+        description = addressService.checkParameterString("description", request, possibleErrors, description);
 
         houseNumber = addressService.checkParameterInteger("houseNumber", request, possibleErrors, houseNumber);
         numberOfRooms = addressService.checkParameterInteger("numberOfRooms", request, possibleErrors, numberOfRooms);
 
         square = addressService.checkParameterLong("square", request, possibleErrors, square);
+        price = addressService.checkParameterLong("price", request, possibleErrors, price);
 
         if (!possibleErrors.isEmpty()) {
             request.setAttribute("possibleErrors", possibleErrors);
             doGet(request, response);
         } else {
-            Room roomToSave = new Room(square, numberOfRooms, new Address(city, street, houseNumber));
+            Room roomToSave = new Room(square, numberOfRooms, new Address(city, street, houseNumber), description, price, Statuses.STATUS_POSTED.toString());
             roomToSave.setUser((User) request.getSession().getAttribute("currentUser"));
             roomService.save(roomToSave);
             response.sendRedirect(String.format("%s/user", request.getContextPath()));

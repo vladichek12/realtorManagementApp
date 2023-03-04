@@ -22,6 +22,20 @@ public class Room {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "realtor_id", referencedColumnName = "id")
+    private User realtor;
+
+    @Column
+    private String description;
+
+    @Column
+    private long price;
+
+    @Column
+    private String status;
+
+
     public long getSquare() {
         return square;
     }
@@ -58,12 +72,48 @@ public class Room {
         this.user = user;
     }
 
+    public User getRealtor() {
+        return realtor;
+    }
+
+    public void setRealtor(User realtor) {
+        this.realtor = realtor;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Room() {
     }
 
-    public Room(long square, int numberOfRooms, Address address) {
+    public Room(long square, int numberOfRooms, Address address,
+                String description, long price, String status) {
         this.square = square;
         this.numberOfRooms = numberOfRooms;
         this.address = address;
+        this.description = description;
+        this.price = price;
+        this.status = status;
     }
 }

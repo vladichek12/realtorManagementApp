@@ -116,6 +116,14 @@
         <servlet-name>contactsServlet</servlet-name>
         <url-pattern>/contacts</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>catalogServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.CatalogServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>catalogServlet</servlet-name>
+        <url-pattern>/rooms</url-pattern>
+    </servlet-mapping>
 
 
     <filter>

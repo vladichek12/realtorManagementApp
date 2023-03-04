@@ -18,7 +18,6 @@
         <mapping class="realtorManagementApp.entities.User"></mapping>
         <mapping class="realtorManagementApp.entities.Room"></mapping>
         <mapping class="realtorManagementApp.entities.Address"></mapping>
-        <mapping class="realtorManagementApp.entities.Order"></mapping>
 
 
         <!-- DB schema will be updated if needed -->

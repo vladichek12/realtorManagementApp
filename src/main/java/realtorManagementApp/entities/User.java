@@ -21,11 +21,20 @@ public class User {
     @Column(name = "user_role")
     private String userRole;
 
-//    @OneToMany(mappedBy="customer")
-//    private Set<Order> orders;
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
-    @OneToMany(mappedBy = "realtor")
-    private Set<Order> realtorOrders;
+    @OneToMany(mappedBy = "realtor", fetch = FetchType.EAGER)
+    private Set<Room> realtorRooms;
+
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     public String getEmail() {
         return email;
@@ -59,14 +68,15 @@ public class User {
         this.id = id;
     }
 
-    public User(String email, String password, String userRole, String name) {
+    public User(String email, String password, String userRole, String name, String phoneNumber) {
         this.email = email;
         this.password = password;
         this.userRole = userRole;
         this.name = name;
+        this.phoneNumber = phoneNumber;
     }
 
-    public User(User user){
+    public User(User user) {
         this.email = user.getEmail();
         this.id = user.getId();
         this.userRole = user.getUserRole();

@@ -13,11 +13,19 @@
     <a href="${pageContext.servletContext.contextPath}">
         <img src="${pageContext.servletContext.contextPath}/images/logo.svg"/>
         ${word}
-        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        <c:if test="${sessionScope.currentUser!= null}">
-        <a href="${pageContext.servletContext.contextPath}/exit">
-            <img src="${pageContext.servletContext.contextPath}/images/exit.svg"/>
-        </a>
+        <c:set var="user" value="${sessionScope.currentUser}"/>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        <c:if test="${user != null}">
+            <a href="${pageContext.servletContext.contextPath}/user">
+                <img src="${pageContext.servletContext.contextPath}/images/profile.svg"/>
+                    ${user.name}
+            </a>
+        </c:if>
+        &emsp;&emsp;&emsp;
+        <c:if test="${user!= null}">
+            <a href="${pageContext.servletContext.contextPath}/exit">
+                <img src="${pageContext.servletContext.contextPath}/images/exit.svg"/>
+            </a>
         </c:if>
     </a>
 </header>

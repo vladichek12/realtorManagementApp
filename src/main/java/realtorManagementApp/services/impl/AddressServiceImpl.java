@@ -5,15 +5,16 @@ import realtorManagementApp.dao.impl.RoomDaoImpl;
 import realtorManagementApp.services.AddressService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class AddressServiceImpl implements AddressService {
     private static volatile AddressServiceImpl instance;
 
 
-    private final String WRONG_ARGUMENT_MESSAGE = "Value you've entered is not valid!";
-    private final String WRONG_INT_ARGUMENT_MESSAGE = "Integer number requested";
-    private final String WRONG_LONG_ARGUMENT_MESSAGE = "Real number requested";
+    private final String WRONG_ARGUMENT_MESSAGE = "Введенное Вами значение неверное!";
+    private final String WRONG_INT_ARGUMENT_MESSAGE = "Требуется ввести целое число";
+    private final String WRONG_LONG_ARGUMENT_MESSAGE = "Требуется ввести действительное положительное число";
 
     private RoomDao roomDao;
 
@@ -41,7 +42,7 @@ public class AddressServiceImpl implements AddressService {
                 throw new IllegalArgumentException(paramName);
             }
         } catch (IllegalArgumentException iae) {
-            errors.put(iae.getMessage(), WRONG_ARGUMENT_MESSAGE);
+            errors.put(iae.getMessage(), new String(WRONG_ARGUMENT_MESSAGE.getBytes(), StandardCharsets.UTF_8));
         }
         return param;
     }
@@ -54,7 +55,7 @@ public class AddressServiceImpl implements AddressService {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException nfe) {
-            errors.put(paramName, WRONG_ARGUMENT_MESSAGE + " " + WRONG_INT_ARGUMENT_MESSAGE);
+            errors.put(paramName, new String((WRONG_ARGUMENT_MESSAGE + " " + WRONG_INT_ARGUMENT_MESSAGE).getBytes(), StandardCharsets.UTF_8));
         }
         return param;
     }
@@ -67,7 +68,7 @@ public class AddressServiceImpl implements AddressService {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException nfe) {
-            errors.put(paramName, WRONG_ARGUMENT_MESSAGE + " " + WRONG_LONG_ARGUMENT_MESSAGE);
+            errors.put(paramName, new String((WRONG_ARGUMENT_MESSAGE + " " + WRONG_LONG_ARGUMENT_MESSAGE).getBytes(), StandardCharsets.UTF_8));
         }
         return param;
     }

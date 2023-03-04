@@ -1,5 +1,6 @@
 package realtorManagementApp.services.impl;
 
+import realtorManagementApp._enum.Statuses;
 import realtorManagementApp.dao.RoomDao;
 import realtorManagementApp.dao.impl.RoomDaoImpl;
 import realtorManagementApp.entities.Room;
@@ -44,6 +45,13 @@ public class RoomServiceImpl implements RoomService {
     public List<Room> findAllUserRooms(User user) {
         return findAll().stream().
                 filter(room -> user.getId().equals(room.getUser().getId())).
+                collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Room> findAllPostedRooms() {
+        return findAll().stream().
+                filter(room -> Statuses.STATUS_POSTED.getTitle().equals(room.getStatus())).
                 collect(Collectors.toList());
     }
 
