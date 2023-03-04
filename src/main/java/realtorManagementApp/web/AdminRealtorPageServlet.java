@@ -39,12 +39,12 @@ public class AdminRealtorPageServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("userId"));
         User user = new User(userService.findUserById(id));
         roomService.findAllUserRooms(user).
                 forEach(room -> roomService.delete(room));
         userService.delete(user);
-        response.sendRedirect("adminRealtors");
+        response.sendRedirect(String.format("%s/admin/realtors", request.getContextPath()));
     }
 }

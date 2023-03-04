@@ -45,6 +45,6 @@ public class AdminCustomerPageServlet extends HttpServlet {
         roomService.findAllUserRooms(user).
                 forEach(room -> roomService.delete(room));
         userService.delete(user);
-        response.sendRedirect("adminCustomers");
+        response.sendRedirect(String.format("%s/admin/customers",request.getContextPath()));
     }
 }

@@ -19,9 +19,9 @@ public class LoginPageServlet extends HttpServlet {
     private final String PASSWORD_REQUEST_PARAMETER = "password";
     private final String NAME_REQUEST_PARAMETER = "name";
     private final String ERROR_ATTRIBUTE = "error";
-    private final String INVALID_LOGIN_OR_PASSWORD_MESSAGE = "Invalid login/password! Please check the data!";
-    private final String INVALID_LOGIN_MESSAGE = "Invalid login! Try again please!";
-    private final String INVALID_PASSWORD_MESSAGE = "Invalid password! Try again please!";
+    private final String INVALID_LOGIN_OR_PASSWORD_MESSAGE = "Неверный логин/пароль! Попробуйте еще раз";
+    private final String INVALID_LOGIN_MESSAGE = "Неверный логин! Попробуйте еще раз";
+    private final String INVALID_PASSWORD_MESSAGE = "Неверный пароль! Попробуйте еще раз";
 
     private UserDao userDao;
 
@@ -38,14 +38,14 @@ public class LoginPageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = null, password = null;
+        String email, password;
         try {
             if (
                     (email = request.getParameter(LOGIN_REQUEST_PARAMETER)) == null ||
                             (password = request.getParameter(PASSWORD_REQUEST_PARAMETER)) == null ||
                             email.isEmpty() ||
                             password.isEmpty()) {
-                throw new IllegalArgumentException(INVALID_LOGIN_OR_PASSWORD_MESSAGE);
+                throw new IllegalArgumentException(new String(INVALID_LOGIN_OR_PASSWORD_MESSAGE.getBytes(),StandardCharsets.UTF_8));
             }
             User authenticatedUser = userDao.findUser(request.getParameter(LOGIN_REQUEST_PARAMETER));
             if (Hashing.
@@ -61,10 +61,10 @@ public class LoginPageServlet extends HttpServlet {
                 }
                 return;
             } else {
-                request.setAttribute(ERROR_ATTRIBUTE, INVALID_PASSWORD_MESSAGE);
+                request.setAttribute(ERROR_ATTRIBUTE, new String(INVALID_PASSWORD_MESSAGE.getBytes(),StandardCharsets.UTF_8));
             }
         } catch (UserNotFoundException unfe) {
-            request.setAttribute(ERROR_ATTRIBUTE, INVALID_LOGIN_MESSAGE);
+            request.setAttribute(ERROR_ATTRIBUTE, new String(INVALID_LOGIN_MESSAGE.getBytes(),StandardCharsets.UTF_8));
         } catch (IllegalArgumentException iae) {
             request.setAttribute(ERROR_ATTRIBUTE, iae.getMessage());
         }
