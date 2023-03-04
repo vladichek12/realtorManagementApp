@@ -1,12 +1,9 @@
 package realtorManagementApp.web;
 
-import realtorManagementApp.entities.Order;
 import realtorManagementApp.entities.Room;
 import realtorManagementApp.entities.User;
-import realtorManagementApp.services.OrderService;
 import realtorManagementApp.services.RoomService;
 import realtorManagementApp.services.UserService;
-import realtorManagementApp.services.impl.OrderServiceImpl;
 import realtorManagementApp.services.impl.RoomServiceImpl;
 import realtorManagementApp.services.impl.UserServiceImpl;
 
@@ -22,8 +19,9 @@ import java.util.List;
 public class AdminAddOrderServlet extends HttpServlet {
     private UserService userService;
     private RoomService roomService;
-    private OrderService orderService;
-    private List<User> realtors;;
+    // private OrderService orderService;
+    private List<User> realtors;
+    ;
     private List<Room> rooms;
 
     @Override
@@ -31,7 +29,7 @@ public class AdminAddOrderServlet extends HttpServlet {
         super.init(config);
         userService = UserServiceImpl.getInstance();
         roomService = RoomServiceImpl.getInstance();
-        orderService = OrderServiceImpl.getInstance();
+        //orderService = OrderServiceImpl.getInstance();
     }
 
     @Override
@@ -43,7 +41,7 @@ public class AdminAddOrderServlet extends HttpServlet {
         realtors = userService.findAllRealtors();
         rooms = roomService.findAll();
         request.setAttribute("realtors", realtors);
-        request.setAttribute("rooms",rooms);
+        request.setAttribute("rooms", rooms);
         request.getServletContext().getRequestDispatcher("/WEB-INF/pages/admin/addNewOrder.jsp").forward(request, response);
     }
 
@@ -55,8 +53,8 @@ public class AdminAddOrderServlet extends HttpServlet {
         int roomId = Integer.parseInt(tempRoomId.get(0));
         User realtor = userService.findUserById(realtorId);
         Room room = roomService.findById(roomId);
-        Order order = new Order(realtor,room);
-        orderService.save(order);
+//        Order order = new Order(realtor,room);
+//        orderService.save(order);
         response.sendRedirect("adminOrders");
     }
 }

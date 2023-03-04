@@ -12,6 +12,8 @@ public interface RoomService {
 
     public List<Room> findAllUserRooms(User user);
 
+    public List<Room> findAllPostedRooms();
+
     public void save(Room room);
 
     public void delete(Room room);

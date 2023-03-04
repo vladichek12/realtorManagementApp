@@ -3,7 +3,6 @@ package realtorManagementApp.dao.impl;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import realtorManagementApp.dao.RoomDao;
-import realtorManagementApp.entities.Order;
 import realtorManagementApp.entities.Room;
 import realtorManagementApp.exceptions.EntityNotFoundException;
 import realtorManagementApp.session.SessionHandler;
