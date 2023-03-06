@@ -20,7 +20,12 @@ public class Room {
 
     @OneToOne()
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    private User user;//владелец
+
+    //енам тип
+    //юзер риелтор занятый этим
+    //юзер покупатель
+    //енам статус
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "realtor_id", referencedColumnName = "id")
@@ -107,6 +112,16 @@ public class Room {
     public Room() {
     }
 
+    public Room(long square, int numberOfRooms, Address address,/* User user, User realtor,*/ String description, long price) {
+        this.square = square;
+        this.numberOfRooms = numberOfRooms;
+        this.address = address;
+        this.user = user;
+        this.realtor = realtor;
+        this.description = description;
+        this.price = price;
+    }
+
     public Room(long square, int numberOfRooms, Address address,
                 String description, long price, String status) {
         this.square = square;
@@ -115,5 +130,17 @@ public class Room {
         this.description = description;
         this.price = price;
         this.status = status;
+    }
+
+    public Room(Room room){
+        this.square = room.square;
+        this.address = room.address;
+        this.description = room.description;
+        this.numberOfRooms = room.numberOfRooms;
+        this.id = room.id;
+        this.price = room.price;
+        this.realtor = room.realtor;
+        this.status = room.status;
+        this.user = room.user;
     }
 }

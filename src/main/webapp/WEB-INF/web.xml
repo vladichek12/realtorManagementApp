@@ -51,12 +51,48 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>adminAddOrderServlet</servlet-name>
-        <servlet-class>realtorManagementApp.web.AdminAddOrderServlet</servlet-class>
+        <servlet-name>adminUpdateOrderServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.AdminUpdateOrderServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>adminAddOrderServlet</servlet-name>
-        <url-pattern>/adminAddOrder/*</url-pattern>
+        <servlet-name>adminUpdateOrderServlet</servlet-name>
+        <url-pattern>/adminUpdateOrder/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminOrderSearchServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.AdminOrderSearchServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminOrderSearchServlet</servlet-name>
+        <url-pattern>/admin/order-search</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminCustomerSearchServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.AdminCustomerSearchServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminCustomerSearchServlet</servlet-name>
+        <url-pattern>/admin/customer-search</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminRealtorSearchServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.AdminRealtorSearchServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminRealtorSearchServlet</servlet-name>
+        <url-pattern>/admin/realtor-search</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserOrderSearchServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.UserOrderSearchServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserOrderSearchServlet</servlet-name>
+        <url-pattern>/user/order-search</url-pattern>
     </servlet-mapping>
 
     <servlet>

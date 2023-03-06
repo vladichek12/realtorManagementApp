@@ -13,6 +13,9 @@ public class User {
     @Column
     private String email;
 
+/*    @Column
+    private String phoneNumber;*/
+
     @Column
     private String password;
     @Column
