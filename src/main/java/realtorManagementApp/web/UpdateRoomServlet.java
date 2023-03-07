@@ -38,12 +38,13 @@ public class UpdateRoomServlet extends HttpServlet {
             return;
         }
         request.setAttribute("room", roomService.findById(Integer.valueOf(request.getPathInfo().substring(1))));
+        request.setAttribute("realtors", userService.findAllRealtors());
         request.getRequestDispatcher("/WEB-INF/pages/updateRoom.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String city = null, street = null, description = null;
+        String city = null, street = null, description = null, type = null;
         int houseNumber = 0, numberOfRooms = 0;
         long square = 0, id = Long.parseLong(request.getParameter("id")), price = 0;
         Map<String, String> possibleErrors = new HashMap<>();
@@ -52,6 +53,7 @@ public class UpdateRoomServlet extends HttpServlet {
         city = addressService.checkParameterString("city", request, possibleErrors, city);
         street = addressService.checkParameterString("street", request, possibleErrors, street);
         description = addressService.checkParameterString("description", request, possibleErrors, description);
+        type = addressService.checkParameterString("type", request, possibleErrors, type);
 
         houseNumber = addressService.checkParameterInteger("houseNumber", request, possibleErrors, houseNumber);
         numberOfRooms = addressService.checkParameterInteger("numberOfRooms", request, possibleErrors, numberOfRooms);
@@ -69,6 +71,7 @@ public class UpdateRoomServlet extends HttpServlet {
             roomToUpdate.setAddress(new Address(city, street, houseNumber));
             roomToUpdate.setPrice(price);
             roomToUpdate.setDescription(description);
+            roomToUpdate.setType(type);
             roomService.update(roomToUpdate);
             response.sendRedirect(String.format("%s/user", request.getContextPath()));
         }

@@ -14,6 +14,8 @@ public interface RoomService {
 
     public List<Room> findAllPostedRooms();
 
+    public List<Room> findAllRealtorRooms(User user);
+
     public void save(Room room);
 
     public void delete(Room room);
