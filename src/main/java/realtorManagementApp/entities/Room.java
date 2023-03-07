@@ -40,6 +40,16 @@ public class Room {
     @Column
     private String status;
 
+    @Column
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public long getSquare() {
         return square;
@@ -123,16 +133,17 @@ public class Room {
     }
 
     public Room(long square, int numberOfRooms, Address address,
-                String description, long price, String status) {
+                String description, long price, String status, String type) {
         this.square = square;
         this.numberOfRooms = numberOfRooms;
         this.address = address;
         this.description = description;
         this.price = price;
         this.status = status;
+        this.type = type;
     }
 
-    public Room(Room room){
+    public Room(Room room) {
         this.square = room.square;
         this.address = room.address;
         this.description = room.description;

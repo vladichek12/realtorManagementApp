@@ -56,6 +56,14 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public List<Room> findAllRealtorRooms(User user) {
+        return findAll().stream().
+                filter(room -> room.getRealtor() != null).
+                filter((room -> user.getId().equals(room.getRealtor().getId()))).
+                collect(Collectors.toList());
+    }
+
+    @Override
     public void save(Room room) {
         roomDao.save(room);
     }
