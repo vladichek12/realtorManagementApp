@@ -96,6 +96,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>OrderSearchServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.OrderSearchServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderSearchServlet</servlet-name>
+        <url-pattern>/orders/search</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>defaultUserServlet</servlet-name>
         <servlet-class>realtorManagementApp.web.DefaultUserPageServlet</servlet-class>
     </servlet>

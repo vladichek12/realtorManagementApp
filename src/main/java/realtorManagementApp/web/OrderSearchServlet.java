@@ -1,6 +1,9 @@
 package realtorManagementApp.web;
 
+import realtorManagementApp._enum.Roles;
+import realtorManagementApp._enum.Types;
 import realtorManagementApp.entities.Room;
+import realtorManagementApp.entities.User;
 import realtorManagementApp.services.RoomService;
 import realtorManagementApp.services.impl.RoomServiceImpl;
 
@@ -15,7 +18,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-public class AdminOrderSearchServlet extends HttpServlet {
+public class OrderSearchServlet extends HttpServlet {
 
     private RoomService roomService;
 
@@ -35,7 +38,8 @@ public class AdminOrderSearchServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String query = req.getParameter("query");
         String[] filters = req.getParameterValues("filter");
-        List<Room> results = performSearch(query);
+        User thisUser = (User)req.getSession().getAttribute("currentUser");
+        List<Room> results = performSearch(query,thisUser);
         if (filters != null && filters.length > 0) {
             List<String> filterList = Arrays.asList(filters);
 
@@ -45,14 +49,22 @@ public class AdminOrderSearchServlet extends HttpServlet {
         }
 
         req.setAttribute("rooms", results);
-        req.getRequestDispatcher("/WEB-INF/pages/admin/adminOrdersPage.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/pages/orders.jsp").forward(req, resp);
     }
 
-    private List<Room> performSearch(String query) {
-       return roomService.findAll().stream()
-               .filter(room -> room.getDescription().toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT)))
-               .collect(Collectors.toList());
+    private List<Room> performSearch(String query, User thisUser) {
+        if(thisUser.getUserRole().equals(Roles.ROLE_USER.getTitle()))
+            return roomService.findAllUserRooms(thisUser).stream()
+                    .filter(room -> room.getDescription().toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT)))
+                    .collect(Collectors.toList());
+        return roomService.findAllRealtorRooms(thisUser).stream()
+                .filter(room -> room.getDescription().toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT)))
+                .collect(Collectors.toList());
+
     }
+
 
 
 }
+
+
