@@ -11,6 +11,8 @@ public class Room {
     @Column
     private long square;
 
+
+
     @Column(name = "number_of_rooms")
     private int numberOfRooms;
 
@@ -42,6 +44,22 @@ public class Room {
 
     @Column
     private String type;
+
+
+    @OneToOne(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private RoomImage roomImage;
+
+
+    public RoomImage getRoomImage() {
+        return roomImage;
+    }
+
+    public void setRoomImage(RoomImage roomImage) {
+        this.roomImage = roomImage;
+    }
 
     public String getType() {
         return type;
@@ -122,7 +140,8 @@ public class Room {
     public Room() {
     }
 
-    public Room(long square, int numberOfRooms, Address address,/* User user, User realtor,*/ String description, long price) {
+    public Room(long square, int numberOfRooms, Address address,/* User user, User realtor,*/ String description,
+                long price,RoomImage image) {
         this.square = square;
         this.numberOfRooms = numberOfRooms;
         this.address = address;
@@ -130,10 +149,11 @@ public class Room {
         this.realtor = realtor;
         this.description = description;
         this.price = price;
+        this.roomImage = image;
     }
 
     public Room(long square, int numberOfRooms, Address address,
-                String description, long price, String status, String type) {
+                String description, long price, String status, String type,RoomImage image) {
         this.square = square;
         this.numberOfRooms = numberOfRooms;
         this.address = address;
@@ -141,6 +161,7 @@ public class Room {
         this.price = price;
         this.status = status;
         this.type = type;
+        this.roomImage = image;
     }
 
     public Room(Room room) {
