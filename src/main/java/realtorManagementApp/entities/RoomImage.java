@@ -16,6 +16,7 @@ public class RoomImage implements Serializable {
 
     private byte[] image;
 
+    @Column(name = "file_name")
     private String fileName;
 
     @Column(name = "file_type")

@@ -2,9 +2,7 @@ package realtorManagementApp.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import realtorManagementApp.dao.RoomDao;
 import realtorManagementApp.dao.RoomImageDao;
-import realtorManagementApp.entities.Room;
 import realtorManagementApp.entities.RoomImage;
 import realtorManagementApp.exceptions.EntityNotFoundException;
 import realtorManagementApp.session.SessionHandler;
@@ -18,7 +16,7 @@ public class RoomImageDaoImpl implements RoomImageDao {
     public static RoomImageDao getInstance() {
         RoomImageDao localInstance = instance;
         if (localInstance == null) {
-            synchronized (RoomDao.class) {
+            synchronized (RoomImageDao.class) {
                 localInstance = instance;
                 if (localInstance == null)
                     instance = localInstance = new RoomImageDaoImpl();
@@ -31,6 +29,7 @@ public class RoomImageDaoImpl implements RoomImageDao {
     }
 
     private Session currentSession;
+
     @Override
     public List<RoomImage> findAll() {
         currentSession = SessionHandler.openTransaction();

@@ -22,6 +22,6 @@ public class DeleteRoomServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         roomService.delete(roomService.findById(Integer.parseInt(request.getPathInfo().substring(1))));
-        response.sendRedirect(String.format("%s/user", request.getContextPath()));
+        response.sendRedirect(String.format("%s/orders", request.getContextPath()));
     }
 }

@@ -177,6 +177,14 @@
         <servlet-name>ordersServlet</servlet-name>
         <url-pattern>/orders</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>connectUsersServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.ConnectUsersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>connectUsersServlet</servlet-name>
+        <url-pattern>/connect/*</url-pattern>
+    </servlet-mapping>
 
 
     <filter>

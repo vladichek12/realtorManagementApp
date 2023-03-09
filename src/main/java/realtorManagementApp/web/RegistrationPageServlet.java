@@ -24,7 +24,7 @@ public class RegistrationPageServlet extends HttpServlet {
     private final String PHONE_REQUEST_PARAMETER = "phoneNumber";
     private final String ERROR_ATTRIBUTE = "error";
 
-    private final String INVALID_LOGIN_OR_PASSWORD_MESSAGE = "Invalid login/password! Please check the data!";
+    private final String INVALID_LOGIN_OR_PASSWORD_MESSAGE = "Неверный логин/пароль! Проверьте введенные данные";
 
 
     @Override
@@ -63,10 +63,10 @@ public class RegistrationPageServlet extends HttpServlet {
                             login.isEmpty() ||
                             request.getParameter(PASSWORD_REQUEST_PARAMETER).isEmpty() ||
                             request.getParameter("name").isEmpty()) {
-                throw new IllegalArgumentException(INVALID_LOGIN_OR_PASSWORD_MESSAGE);
+                throw new IllegalArgumentException(new String(INVALID_LOGIN_OR_PASSWORD_MESSAGE.getBytes(), StandardCharsets.UTF_8));
             }
             userAlreadyExists = userService.findUser(login);
-            request.setAttribute(ERROR_ATTRIBUTE, "User with such login already exists!");
+            request.setAttribute(ERROR_ATTRIBUTE, new String("Пользователь с таким логином уже существует!".getBytes(), StandardCharsets.UTF_8));
         } catch (UserNotFoundException unfe) {
             phoneNumber = request.getParameter(PHONE_REQUEST_PARAMETER);
             userAlreadyExists = new User(login,
@@ -74,7 +74,7 @@ public class RegistrationPageServlet extends HttpServlet {
                             sha256().
                             hashString(password, StandardCharsets.UTF_8).
                             toString(), role, request.getParameter("name"), phoneNumber);
-            userAlreadyExists.setEmail(request.getParameter("name"));
+            //userAlreadyExists.setEmail(request.getParameter("name"));
             userService.save(userAlreadyExists);
             request.getSession().setAttribute("currentUser", userAlreadyExists);
             response.sendRedirect(String.format("%s/user", request.getContextPath()));

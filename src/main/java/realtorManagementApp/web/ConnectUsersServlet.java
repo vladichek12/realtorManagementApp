@@ -1,7 +1,7 @@
 package realtorManagementApp.web;
 
+import realtorManagementApp._enum.Statuses;
 import realtorManagementApp.entities.Room;
-import realtorManagementApp.entities.User;
 import realtorManagementApp.services.RoomService;
 import realtorManagementApp.services.UserService;
 import realtorManagementApp.services.impl.RoomServiceImpl;
@@ -13,9 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.stream.Collectors;
 
-public class DefaultUserPageServlet extends HttpServlet {
+public class ConnectUsersServlet extends HttpServlet {
     private RoomService roomService;
     private UserService userService;
 
@@ -33,17 +32,11 @@ public class DefaultUserPageServlet extends HttpServlet {
             response.sendRedirect(String.format("%s/login", request.getContextPath()));
             return;
         }
-        request.setAttribute("rooms", roomService.findAll());
-        request.setAttribute("currentUserRooms",
-                roomService.findAllUserRooms((User) request.getSession().getAttribute("currentUser")));
-        request.setAttribute("images", roomService.findAll().stream().
-                map(Room::getRoomImage).
-                collect(Collectors.toList()));
-        request.getRequestDispatcher("/WEB-INF/pages/userPage.jsp").forward(request, response);
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        Room room = roomService.findById(Integer.valueOf(request.getPathInfo().substring(1)));
+        room.setStatus(Statuses.STATUS_PROCESSING.getTitle());
+        roomService.update(room);
+        request.setAttribute("room", room);
+        request.getRequestDispatcher("/WEB-INF/pages/roomInfo.jsp").forward(request, response);
     }
 }
 

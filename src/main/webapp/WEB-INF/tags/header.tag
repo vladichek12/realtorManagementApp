@@ -16,12 +16,20 @@
         <c:set var="user" value="${sessionScope.currentUser}"/>
         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
         <c:if test="${user != null}">
-            <a href="${pageContext.servletContext.contextPath}/user">
-                <img src="${pageContext.servletContext.contextPath}/images/profile.svg"/>
-                    ${user.name}
-            </a>
+            <c:if test="${user.getUserRole() != 'ROLE_ADMIN'}">
+                <a href="${pageContext.servletContext.contextPath}/user">
+                    <img src="${pageContext.servletContext.contextPath}/images/profile.svg"/>
+                    <div class="nickname">${user.name}</div>
+                </a>
+            </c:if>
+            <c:if test="${user.getUserRole() == 'ROLE_ADMIN'}">
+                <a href="${pageContext.servletContext.contextPath}/admin/customers">
+                    <img src="${pageContext.servletContext.contextPath}/images/profile.svg"/>
+                    <div class="nickname">${user.name}</div>
+                </a>
+            </c:if>
         </c:if>
-        &emsp;&emsp;&emsp;
+
         <c:if test="${user!= null}">
             <a href="${pageContext.servletContext.contextPath}/exit">
                 <img src="${pageContext.servletContext.contextPath}/images/exit.svg"/>

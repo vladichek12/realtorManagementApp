@@ -30,3 +30,8 @@ li a:hover:not(.active) {
     float: left;
     padding-right: 10%;
 }
+
+.choose {
+    padding-left: 15px;
+    vertical-align: middle;
+}

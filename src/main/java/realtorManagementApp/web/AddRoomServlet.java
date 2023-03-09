@@ -1,12 +1,10 @@
 package realtorManagementApp.web;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import realtorManagementApp._enum.Statuses;
 import realtorManagementApp._enum.Types;
 import realtorManagementApp.entities.Address;
@@ -27,22 +25,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
+import java.util.NoSuchElementException;
 
 public class AddRoomServlet extends HttpServlet {
     private RoomService roomService;
     private RoomImageService roomImageService;
     private AddressService addressService;
     private UserService userService;
+
+    private final String NO_IMAGE = "Пожалуйста, выберите фото!";
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -69,18 +65,7 @@ public class AddRoomServlet extends HttpServlet {
         int houseNumber = 0, numberOfRooms = 0;
         long square = 0, price = 0, realtorId = 0;
         Map<String, String> possibleErrors = new HashMap<>();
-
-/*        city = addressService.checkParameterString("city", request, possibleErrors, city);
-        street = addressService.checkParameterString("street", request, possibleErrors, street);
-        description = addressService.checkParameterString("description", request, possibleErrors, description);
-        type = addressService.checkParameterString("type", request, possibleErrors, type);
-
-        houseNumber = addressService.checkParameterInteger("houseNumber", request, possibleErrors, houseNumber);
-        numberOfRooms = addressService.checkParameterInteger("numberOfRooms", request, possibleErrors, numberOfRooms);
-
-        square = addressService.checkParameterLong("square", request, possibleErrors, square);
-        price = addressService.checkParameterLong("price", request, possibleErrors, price);
-        realtorId = addressService.checkParameterLong("select", request, possibleErrors, realtorId);*/
+        Map<String, String> parameters = new HashMap<>();
 
 
         RoomImage roomImage = new RoomImage();
@@ -100,7 +85,7 @@ public class AddRoomServlet extends HttpServlet {
             ServletFileUpload upload = new ServletFileUpload();
 
             // Установка максимального размера загружаемого файла
-            upload.setFileSizeMax(1024*1024*3);
+            upload.setFileSizeMax(1024 * 1024 * 3);
 
             // Установка максимального размера всего запроса
             upload.setSizeMax(10000000);
@@ -115,59 +100,59 @@ public class AddRoomServlet extends HttpServlet {
                     if (!item.isFormField()) {
                         // Получение содержимого файла
                         byte[] imageBytes = item.openStream().readAllBytes();
+                        if (imageBytes.length == 0) {
+                            possibleErrors.put("imageError", new String(NO_IMAGE.getBytes(), StandardCharsets.UTF_8));
+                        }
                         // Создание объекта, содержащего информацию о файле и его содержимом
                         roomImage.setImage(imageBytes);
                         roomImage.setFileName(item.getName());
                         roomImage.setType(item.getContentType());
                         // Сохранение объекта в базу данных
                         roomImageService.save(roomImage);
-                    }
-                    else{
-                        if(item.getFieldName().equals("city")){
-                            city = new Scanner(item.openStream(), "UTF-8").useDelimiter("\\A").next();
+                    } else {
+                        if (item.getFieldName().equals("city")) {
+                            city = addressService.checkString("city", possibleErrors, parameters, city, item);
                         }
-                        if(item.getFieldName().equals("street")){
-                            street = new Scanner(item.openStream(), "UTF-8").useDelimiter("\\A").next();
-                        }
-
-                        if(item.getFieldName().equals("description")){
-                            description = new Scanner(item.openStream(), "UTF-8").useDelimiter("\\A").next();
-                        }
-                        if(item.getFieldName().equals("type")){
-                            type = new Scanner(item.openStream(), "UTF-8").useDelimiter("\\A").next();
+                        if (item.getFieldName().equals("street")) {
+                            street = addressService.checkString("street", possibleErrors, parameters, street, item);
                         }
 
-                        if(item.getFieldName().equals("houseNumber")){
-                            houseNumber = Integer.parseInt(new Scanner(item.openStream(), "UTF-8").useDelimiter("\\A").next());
+                        if (item.getFieldName().equals("description")) {
+                            description = addressService.checkString("description", possibleErrors, parameters, description, item);
                         }
-                        if(item.getFieldName().equals("numberOfRooms")){
-                            numberOfRooms = Integer.parseInt(new Scanner(item.openStream(), "UTF-8").useDelimiter("\\A").next());
-                        }
-                        if(item.getFieldName().equals("square")){
-                            square = Long.parseLong(new Scanner(item.openStream(), "UTF-8").useDelimiter("\\A").next());
-                        }
-                        if(item.getFieldName().equals("price")){
-                            price = Long.parseLong(new Scanner(item.openStream(), "UTF-8").useDelimiter("\\A").next());
-                        }
-                        if(item.getFieldName().equals("select")){
-                            realtorId = Long.parseLong(new Scanner(item.openStream(), "UTF-8").useDelimiter("\\A").next());
+                        if (item.getFieldName().equals("type")) {
+                            type = addressService.checkString("select", possibleErrors, parameters, type, item);
                         }
 
+                        if (item.getFieldName().equals("houseNumber")) {
+                            houseNumber = addressService.checkInteger("houseNumber", possibleErrors, parameters, houseNumber, item);
+                        }
+                        if (item.getFieldName().equals("numberOfRooms")) {
+                            numberOfRooms = addressService.checkInteger("numberOfRooms", possibleErrors, parameters, numberOfRooms, item);
+                        }
+                        if (item.getFieldName().equals("square")) {
+                            square = addressService.checkLong("square", possibleErrors, parameters, square, item);
+                        }
+                        if (item.getFieldName().equals("price")) {
+                            price = addressService.checkLong("price", possibleErrors, parameters, price, item);
+                        }
+                        if (item.getFieldName().equals("select")) {
+                            realtorId = addressService.checkLong("select", possibleErrors, parameters, realtorId, item);
+                        }
                     }
                 }
 
                 // Отправка ответа клиенту
             } catch (FileUploadException e) {
                 response.getWriter().println("File upload failed.");
-            } catch (org.apache.commons.fileupload.FileUploadException e) {
-                e.printStackTrace();
+            } catch (NoSuchElementException ignored) {
             }
-        } else{}
-
+        }
 
 
         if (!possibleErrors.isEmpty()) {
             request.setAttribute("possibleErrors", possibleErrors);
+            request.setAttribute("parameters", parameters);
             doGet(request, response);
         } else {
             Room roomToSave = new Room(square, numberOfRooms, new Address(city, street, houseNumber),
