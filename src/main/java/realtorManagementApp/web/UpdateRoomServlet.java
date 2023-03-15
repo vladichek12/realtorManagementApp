@@ -9,6 +9,7 @@ import realtorManagementApp._enum.Types;
 import realtorManagementApp.entities.Address;
 import realtorManagementApp.entities.Room;
 import realtorManagementApp.entities.RoomImage;
+import realtorManagementApp.entities.User;
 import realtorManagementApp.services.AddressService;
 import realtorManagementApp.services.RoomImageService;
 import realtorManagementApp.services.RoomService;
@@ -156,7 +157,11 @@ public class UpdateRoomServlet extends HttpServlet {
             roomToUpdate.setType(Types.valueOf(type).getTitle());
             roomToUpdate.setRoomImage(roomImage);
             roomService.update(roomToUpdate);
-            response.sendRedirect(String.format("%s/user", request.getContextPath()));
+            if (((User) (request.getSession().getAttribute("currentUser"))).getUserRole().equals("ROLE_ADMIN")) {
+                response.sendRedirect(String.format("%s/admin/orders", request.getContextPath()));
+            } else {
+                response.sendRedirect(String.format("%s/user", request.getContextPath()));
+            }
         }
     }
 }

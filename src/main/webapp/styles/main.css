@@ -73,6 +73,31 @@ img.product-tile {
     margin-top: 15px;
 }
 
+.text-for-index {
+    font-size: 25px;
+    font-weight: 400;
+    text-align: justify;
+    line-height: 1.5;
+    color: rgb(155, 14, 171);
+    text-shadow: 1px 1px 0px #000e3e,
+    1px 2px 0px #e5db10,
+    1px 3px 0px #e5db10,
+    1px 4px 0px #e5db10,
+    1px 5px 0px #e5db10,
+    1px 3px 0px #e5db10,
+    1px 10px 5px rgba(16, 16, 16, 0.5),
+    1px 15px 10px rgba(16, 16, 16, 0.4),
+    1px 20px 30px rgba(16, 16, 16, 0.3),
+    1px 25px 50px rgba(16, 16, 16, 0.2);
+}
+.text-for-index-header {
+    font-size: 50px;
+    font-weight: 600;
+    color: #a246d0;
+    text-shadow: 0px 0px 5px #10b6e7, 0px 0px 10px #10b6e7, 0px 0px 10px #10b6e7,
+    0px 0px 20px #b393d3;
+}
+
 
 /* Page specific styles */
 body.product-list {
