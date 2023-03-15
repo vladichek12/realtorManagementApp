@@ -9,6 +9,7 @@ import realtorManagementApp._enum.Types;
 import realtorManagementApp.entities.Address;
 import realtorManagementApp.entities.Room;
 import realtorManagementApp.entities.RoomImage;
+import realtorManagementApp.entities.User;
 import realtorManagementApp.services.AddressService;
 import realtorManagementApp.services.RoomImageService;
 import realtorManagementApp.services.RoomService;
@@ -152,7 +153,7 @@ public class UpdateRoomServlet extends HttpServlet {
         } else {
             Room roomToUpdate = roomService.findById((int) id);
             List<RoomImage> oldImages = roomToUpdate.getRoomImage();
-            for(RoomImage image :oldImages){
+            for (RoomImage image : oldImages) {
                 roomImageService.delete(image);
             }
             roomToUpdate.getRoomImage().clear();
@@ -165,11 +166,15 @@ public class UpdateRoomServlet extends HttpServlet {
             roomToUpdate.setType(Types.valueOf(type).getTitle());
             roomToUpdate.setRoomImage(roomImages);
             roomService.update(roomToUpdate);
-            for(RoomImage roomImage: roomImages){
+            for (RoomImage roomImage : roomImages) {
                 roomImage.setRoom(roomToUpdate);
                 roomImageService.save(roomImage);
             }
-            response.sendRedirect(String.format("%s/user", request.getContextPath()));
+            if (((User) (request.getSession().getAttribute("currentUser"))).getUserRole().equals("ROLE_ADMIN")) {
+                response.sendRedirect(String.format("%s/admin/orders", request.getContextPath()));
+            } else {
+                response.sendRedirect(String.format("%s/user", request.getContextPath()));
+            }
         }
     }
 }
