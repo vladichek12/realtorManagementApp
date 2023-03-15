@@ -36,7 +36,7 @@ public class AdminOrderPageServlet extends HttpServlet {
             return;
         }
         //orders = orderService.findAll();
-        //request.setAttribute("orders", orders);
+        request.setAttribute("realtors", userService.findAllRealtors());
         rooms = roomService.findAll();
         request.setAttribute("rooms",rooms);
         request.getServletContext().getRequestDispatcher("/WEB-INF/pages/admin/adminOrdersPage.jsp").forward(request, response);

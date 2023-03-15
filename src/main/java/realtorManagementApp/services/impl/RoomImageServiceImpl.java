@@ -79,4 +79,11 @@ public class RoomImageServiceImpl implements RoomImageService {
     public void save(RoomImage roomImage) {
         roomImageDao.save(roomImage);
     }
+
+    @Override
+    public void delete(RoomImage roomImage) {
+        roomImageDao.delete(roomImage);
+    }
+
+
 }

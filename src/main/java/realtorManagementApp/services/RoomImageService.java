@@ -14,4 +14,6 @@ public interface RoomImageService {
     void update(MultipartFile file, Long imageId);
 
     void save(RoomImage roomImage);
+
+    void delete(RoomImage roomImage);
 }

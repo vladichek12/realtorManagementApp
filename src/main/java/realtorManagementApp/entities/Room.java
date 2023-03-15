@@ -1,6 +1,7 @@
 package realtorManagementApp.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "rooms")
@@ -40,17 +41,16 @@ public class Room {
     private String type;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id", referencedColumnName = "id")
-    private RoomImage roomImage;
+    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER,  cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RoomImage> roomImages;
 
 
-    public RoomImage getRoomImage() {
-        return roomImage;
+    public List<RoomImage> getRoomImage() {
+        return roomImages;
     }
 
-    public void setRoomImage(RoomImage roomImage) {
-        this.roomImage = roomImage;
+    public void setRoomImage(List<RoomImage> roomImages) {
+        this.roomImages = roomImages;
     }
 
     public String getType() {
@@ -133,7 +133,7 @@ public class Room {
     }
 
     public Room(long square, int numberOfRooms, Address address,/* User user, User realtor,*/ String description,
-                long price, RoomImage image) {
+                long price, List<RoomImage> images) {
         this.square = square;
         this.numberOfRooms = numberOfRooms;
         this.address = address;
@@ -141,11 +141,11 @@ public class Room {
         this.realtor = realtor;
         this.description = description;
         this.price = price;
-        this.roomImage = image;
+        this.roomImages = images;
     }
 
     public Room(long square, int numberOfRooms, Address address,
-                String description, long price, String status, String type, RoomImage image) {
+                String description, long price, String status, String type, List<RoomImage> images) {
         this.square = square;
         this.numberOfRooms = numberOfRooms;
         this.address = address;
@@ -153,7 +153,7 @@ public class Room {
         this.price = price;
         this.status = status;
         this.type = type;
-        this.roomImage = image;
+        this.roomImages = images;
     }
 
     public Room(Room room) {

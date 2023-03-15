@@ -73,6 +73,10 @@ img.product-tile {
     margin-top: 15px;
 }
 
+.logoChangeColor:active{
+    color: red;
+}
+
 
 /* Page specific styles */
 body.product-list {

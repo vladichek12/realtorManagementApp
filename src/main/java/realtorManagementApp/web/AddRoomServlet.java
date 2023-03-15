@@ -28,9 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class AddRoomServlet extends HttpServlet {
     private RoomService roomService;
@@ -66,9 +64,10 @@ public class AddRoomServlet extends HttpServlet {
         long square = 0, price = 0, realtorId = 0;
         Map<String, String> possibleErrors = new HashMap<>();
         Map<String, String> parameters = new HashMap<>();
+        List<RoomImage> roomImages = new ArrayList<>();
 
 
-        RoomImage roomImage = new RoomImage();
+
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 
         if (isMultipart) {
@@ -98,6 +97,7 @@ public class AddRoomServlet extends HttpServlet {
                 while (items.hasNext()) {
                     FileItemStream item = items.next();
                     if (!item.isFormField()) {
+                        RoomImage roomImage = new RoomImage();
                         // Получение содержимого файла
                         byte[] imageBytes = item.openStream().readAllBytes();
                         if (imageBytes.length == 0) {
@@ -108,7 +108,8 @@ public class AddRoomServlet extends HttpServlet {
                         roomImage.setFileName(item.getName());
                         roomImage.setType(item.getContentType());
                         // Сохранение объекта в базу данных
-                        roomImageService.save(roomImage);
+                        //roomImageService.save(roomImage);
+                        roomImages.add(roomImage);
                     } else {
                         if (item.getFieldName().equals("city")) {
                             city = addressService.checkString("city", possibleErrors, parameters, city, item);
@@ -157,10 +158,14 @@ public class AddRoomServlet extends HttpServlet {
         } else {
             Room roomToSave = new Room(square, numberOfRooms, new Address(city, street, houseNumber),
                     description, price, Statuses.STATUS_POSTED.toString(),
-                    Types.valueOf(type).getTitle(), roomImage);
+                    Types.valueOf(type).getTitle(), roomImages);
             roomToSave.setUser((User) request.getSession().getAttribute("currentUser"));
             roomToSave.setRealtor(userService.findUserById((int) realtorId));
             roomService.save(roomToSave);
+            for(RoomImage roomImage: roomImages){
+                roomImage.setRoom(roomToSave);
+                roomImageService.save(roomImage);
+            }
             response.sendRedirect(String.format("%s/user", request.getContextPath()));
         }
     }

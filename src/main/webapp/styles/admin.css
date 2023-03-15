@@ -6,37 +6,116 @@ body {
 
 .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 7%;
+    grid-template-columns: 1fr;
+    column-gap: 0;
     row-gap: 7%;
+    gap: 2%;
     padding: 3% 10%;
     margin-bottom: 3%;
-
 }
 
 .item {
     background-color: #fff;
     border: black 3px solid;
     border-radius: 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    position: relative;
 }
 
-.item > p {
-    overflow: hidden;
-    display: inline-block;
-    text-overflow: ellipsis;
-    width: 50%;
+.item img {
+    width: 33%;
+    height: 0;
+    /*padding-top: calc(100% / (3 / 4));*/
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    margin-left: 1%;
+}
+
+.item img:only-child{
+    min-width: 72%;
+    min-height: 96%;
+}
+
+.item img:nth-child(n+4) {
+    display: none;
+}
+
+.item .description {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.item .details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.item .details p {
+    margin: 5px;
+    font-size: 14px;
+}
+
+.item .price {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.item:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+}
+
+.item img {
+    width: 28%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    margin-left: 1%;
+}
+
+@media (min-width: 768px) {
+    .item img {
+        width: 23%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .item img {
+        width: 18%;
+    }
+    .item img:nth-child(n+4) {
+        display: inline-block;
+    }
 }
 
 .custom-file-input {
     position: relative;
     display: inline-block;
+    text-align: center; /* добавляем это свойство */
 }
 
 .custom-file-input input[type="file"] {
     position: absolute;
-    left: -9999px;
-    padding-left: 40%;
-    margin-left: 240%;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    cursor: pointer;
 }
 
 .custom-file-input label {
@@ -48,7 +127,11 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     border: black 3px solid;
-    margin-left: 215%;
+    margin: 0 140% auto; /* заменяем margin-left на margin: 0 auto */
+    position: relative;
+    z-index: 1;
+    width: 100px;
+
 }
 
 .custom-file-input label:hover {
@@ -292,6 +375,30 @@ p {
     border-radius: 1px;
     transition: 0.2s;
     border-radius: 10px;
+}
+
+.grid-button {
+    margin-top: 5%;
+    width: 100%;
+    /*margin-left: 15%;*/
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+    color: black;
+    background-color: white;
+    font-weight: 700;
+    text-decoration: none;
+    user-select: none;
+    padding: .5em 2em;
+    outline: none;
+    border: 3px solid black;
+    border-radius: 1px;
+    transition: 0.2s;
+    border-radius: 10px;
+}
+
+.grid-button:hover{
+    background-color: black; /* Green */
+    color: white;
 }
 
 .registration-button:hover {

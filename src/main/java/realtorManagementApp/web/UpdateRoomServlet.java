@@ -26,7 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UpdateRoomServlet extends HttpServlet {
@@ -64,8 +66,7 @@ public class UpdateRoomServlet extends HttpServlet {
         long square = 0, id = 0, price = 0;
         Map<String, String> possibleErrors = new HashMap<>();
         Map<String, String> parameters = new HashMap<>();
-
-        RoomImage roomImage = new RoomImage();
+        List<RoomImage> roomImages = new ArrayList<>();
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 
         if (isMultipart) {
@@ -95,6 +96,7 @@ public class UpdateRoomServlet extends HttpServlet {
                 while (items.hasNext()) {
                     FileItemStream item = items.next();
                     if (!item.isFormField()) {
+                        RoomImage roomImage = new RoomImage();
                         // Получение содержимого файла
                         byte[] imageBytes = item.openStream().readAllBytes();
                         if (imageBytes.length == 0) {
@@ -105,7 +107,8 @@ public class UpdateRoomServlet extends HttpServlet {
                         roomImage.setFileName(item.getName());
                         roomImage.setType(item.getContentType());
                         // Сохранение объекта в базу данных
-                        roomImageService.save(roomImage);
+                        //roomImageService.save(roomImage);
+                        roomImages.add(roomImage);
                     } else {
                         if (item.getFieldName().equals("city")) {
                             city = addressService.checkString("city", possibleErrors, parameters, city, item);
@@ -148,14 +151,24 @@ public class UpdateRoomServlet extends HttpServlet {
             doGet(request, response);
         } else {
             Room roomToUpdate = roomService.findById((int) id);
+            List<RoomImage> oldImages = roomToUpdate.getRoomImage();
+            for(RoomImage image :oldImages){
+                roomImageService.delete(image);
+            }
+            roomToUpdate.getRoomImage().clear();
+            roomToUpdate.getRoomImage().clear();
             roomToUpdate.setNumberOfRooms(numberOfRooms);
             roomToUpdate.setSquare(square);
             roomToUpdate.setAddress(new Address(city, street, houseNumber));
             roomToUpdate.setPrice(price);
             roomToUpdate.setDescription(description);
             roomToUpdate.setType(Types.valueOf(type).getTitle());
-            roomToUpdate.setRoomImage(roomImage);
+            roomToUpdate.setRoomImage(roomImages);
             roomService.update(roomToUpdate);
+            for(RoomImage roomImage: roomImages){
+                roomImage.setRoom(roomToUpdate);
+                roomImageService.save(roomImage);
+            }
             response.sendRedirect(String.format("%s/user", request.getContextPath()));
         }
     }
