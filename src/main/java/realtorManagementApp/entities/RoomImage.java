@@ -30,6 +30,10 @@ public class RoomImage implements Serializable {
     public RoomImage() {
     }
 
+    public Long getId(){
+        return id;
+    }
+
     public byte[] getImage() {
         return image;
     }

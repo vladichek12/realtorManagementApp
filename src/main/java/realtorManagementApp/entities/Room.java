@@ -1,6 +1,7 @@
 package realtorManagementApp.entities;
 
 import javax.persistence.*;
+import java.lang.reflect.Type;
 import java.util.List;
 
 @Entity
@@ -41,7 +42,7 @@ public class Room {
     private String type;
 
 
-    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER,  cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER,  cascade = CascadeType.REMOVE)
     private List<RoomImage> roomImages;
 
 

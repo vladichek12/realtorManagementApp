@@ -154,9 +154,9 @@ public class UpdateRoomServlet extends HttpServlet {
             Room roomToUpdate = roomService.findById((int) id);
             List<RoomImage> oldImages = roomToUpdate.getRoomImage();
             for (RoomImage image : oldImages) {
-                roomImageService.delete(image);
+                if(roomImageService.getById(image.getId()) != null)
+                    roomImageService.delete(image);
             }
-            roomToUpdate.getRoomImage().clear();
             roomToUpdate.getRoomImage().clear();
             roomToUpdate.setNumberOfRooms(numberOfRooms);
             roomToUpdate.setSquare(square);
