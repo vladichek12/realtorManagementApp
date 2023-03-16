@@ -9,6 +9,7 @@ import realtorManagementApp.session.SessionHandler;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class RoomImageDaoImpl implements RoomImageDao {
     private static volatile RoomImageDao instance;
@@ -73,5 +74,12 @@ public class RoomImageDaoImpl implements RoomImageDao {
         currentSession = SessionHandler.openTransaction();
         currentSession.update(roomImage);
         SessionHandler.closeTransactionSession();
+    }
+
+    @Override
+    public List<RoomImage> findByRoomId(Long id) {
+        return findAll().stream().
+                filter(roomImage -> id.equals(roomImage.getRoom().getId())).
+                collect(Collectors.toList());
     }
 }

@@ -23,7 +23,7 @@ public class RoomImage implements Serializable {
     private String type;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "room_id", referencedColumnName = "id")
     private Room room;
 

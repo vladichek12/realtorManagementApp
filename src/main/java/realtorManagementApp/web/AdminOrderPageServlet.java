@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class AdminOrderPageServlet extends HttpServlet {
-    //private OrderService orderService;
+   // private OrderService orderService;
     private UserService userService;
     //private List<Order> orders;
     private RoomService roomService;
@@ -35,18 +35,14 @@ public class AdminOrderPageServlet extends HttpServlet {
             response.sendRedirect(String.format("%s/login", request.getContextPath()));
             return;
         }
-        //orders = orderService.findAll();
         request.setAttribute("realtors", userService.findAllRealtors());
-        rooms = roomService.findAll();
-        request.setAttribute("rooms",rooms);
+        request.setAttribute("rooms",roomService.findAllProcessingRooms());
         request.getServletContext().getRequestDispatcher("/WEB-INF/pages/admin/adminOrdersPage.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("userId"));
-        //Order order = new Order(orderService.findById(id));
-        //orderService.delete(order);
         Room order = new Room(roomService.findById(id));
         roomService.delete(order);
         response.sendRedirect(String.format("%s/admin/orders", request.getContextPath()));

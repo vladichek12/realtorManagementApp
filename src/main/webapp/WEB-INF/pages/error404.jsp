@@ -4,15 +4,15 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ page isErrorPage="true" %>
 
-<tags:master pageTitle="Error">
+<tags:master pageTitle="Error" word="Недвижимость">
     <h1>
-        Sorry, an error occured
+        Извините, произошла ошибка
     </h1>
     <h2>
-        Probably, this page is not supported
+        Вероятно, эта страница не поддерживается
     </h2>
     <h1>${pageContext.errorData.throwable.message}</h1>
     <p>
-        An unexpected error!
+        Непредвиденная ошибка!
     </p>
 </tags:master>

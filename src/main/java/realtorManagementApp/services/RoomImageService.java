@@ -4,6 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 import realtorManagementApp.entities.RoomImage;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface RoomImageService {
 

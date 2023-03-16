@@ -11,6 +11,7 @@ import realtorManagementApp.services.RoomImageService;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 import static org.springframework.util.StringUtils.trimAllWhitespace;
@@ -84,6 +85,4 @@ public class RoomImageServiceImpl implements RoomImageService {
     public void delete(RoomImage roomImage) {
         roomImageDao.delete(roomImage);
     }
-
-
 }

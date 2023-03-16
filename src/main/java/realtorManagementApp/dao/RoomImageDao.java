@@ -15,4 +15,6 @@ public interface RoomImageDao {
     public void delete(RoomImage roomImage);
 
     public void update(RoomImage roomImage);
+
+    List<RoomImage> findByRoomId(Long id);
 }

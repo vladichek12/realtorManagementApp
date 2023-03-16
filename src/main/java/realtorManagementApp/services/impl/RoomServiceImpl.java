@@ -2,7 +2,9 @@ package realtorManagementApp.services.impl;
 
 import realtorManagementApp._enum.Statuses;
 import realtorManagementApp.dao.RoomDao;
+import realtorManagementApp.dao.RoomImageDao;
 import realtorManagementApp.dao.impl.RoomDaoImpl;
+import realtorManagementApp.dao.impl.RoomImageDaoImpl;
 import realtorManagementApp.entities.Room;
 import realtorManagementApp.entities.User;
 import realtorManagementApp.services.RoomService;
@@ -14,6 +16,7 @@ public class RoomServiceImpl implements RoomService {
     private static volatile RoomServiceImpl instance;
 
     private RoomDao roomDao;
+    private RoomImageDao roomImageDao;
 
     public static RoomServiceImpl getInstance() {
         RoomServiceImpl localInstance = instance;
@@ -29,6 +32,7 @@ public class RoomServiceImpl implements RoomService {
 
     private RoomServiceImpl() {
         roomDao = RoomDaoImpl.getInstance();
+        roomImageDao = RoomImageDaoImpl.getInstance();
     }
 
     @Override
@@ -64,14 +68,23 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public List<Room> findAllProcessingRooms() {
+        return findAll().stream().
+                filter(room -> Statuses.STATUS_PROCESSING.getTitle().equals(room.getStatus())).
+                collect(Collectors.toList());
+    }
+
+    @Override
     public void save(Room room) {
         roomDao.save(room);
     }
 
     @Override
     public void delete(Room room) {
+        roomImageDao.findByRoomId(room.getId()).
+                forEach(roomImage -> roomImageDao.delete(roomImage));
         roomDao.delete(room);
-    }
+}
 
     @Override
     public void update(Room room) {

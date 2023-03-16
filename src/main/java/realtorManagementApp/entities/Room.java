@@ -42,7 +42,7 @@ public class Room {
     private String type;
 
 
-    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER,  cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     private List<RoomImage> roomImages;
 
 

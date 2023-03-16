@@ -30,6 +30,9 @@ li a:hover:not(.active) {
     float: left;
     padding-right: 10%;
 }
+.wrap .main-table {
+    padding-right: 230px;
+}
 
 .choose {
     padding-left: 15px;

@@ -21,4 +21,6 @@ public interface RoomService {
     public void delete(Room room);
 
     public void update(Room room);
+
+    public List<Room> findAllProcessingRooms();
 }
