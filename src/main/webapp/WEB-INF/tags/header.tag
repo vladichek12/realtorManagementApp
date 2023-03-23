@@ -19,7 +19,7 @@
     </script>
 </head>
 <body class="product-list">
-<header>
+<header class="header-border">
     <a href="${pageContext.servletContext.contextPath}/">
         <img src="${pageContext.servletContext.contextPath}/images/logo.svg"/>
         ${word}
