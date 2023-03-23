@@ -1,6 +1,6 @@
 package realtorManagementApp.web;
 
-import realtorManagementApp.entities.User;
+import realtorManagementApp.entities.Room;
 import realtorManagementApp.services.RoomService;
 import realtorManagementApp.services.UserService;
 import realtorManagementApp.services.impl.RoomServiceImpl;
@@ -14,16 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class AdminRealtorPageServlet extends HttpServlet {
+public class AdminRoomPageServlet extends HttpServlet {
     private UserService userService;
     private RoomService roomService;
-    private List<User> realtors;
+    private List<Room> rooms;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        userService = UserServiceImpl.getInstance();
         roomService = RoomServiceImpl.getInstance();
+        userService = UserServiceImpl.getInstance();
     }
 
     @Override
@@ -32,18 +32,16 @@ public class AdminRealtorPageServlet extends HttpServlet {
             response.sendRedirect(String.format("%s/login", request.getContextPath()));
             return;
         }
-        realtors = userService.findAllRealtors();
-        request.setAttribute("realtors", realtors);
-        request.getServletContext().getRequestDispatcher("/WEB-INF/pages/admin/adminRealtorsPage.jsp").forward(request, response);
+        request.setAttribute("realtors", userService.findAllRealtors());
+        request.setAttribute("rooms", roomService.findAll());
+        request.getServletContext().getRequestDispatcher("/WEB-INF/pages/admin/adminRoomsPage.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("userId"));
-        User user = new User(userService.findUserById(id));
-        roomService.findAllUserRooms(user).
-                forEach(room -> roomService.delete(room));
-        userService.delete(user);
-        response.sendRedirect(String.format("%s/admin/realtors", request.getContextPath()));
+        Room order = new Room(roomService.findById(id));
+        roomService.delete(order);
+        response.sendRedirect(String.format("%s/admin/orders", request.getContextPath()));
     }
 }

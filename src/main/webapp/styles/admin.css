@@ -1,7 +1,7 @@
 
 body {
     background-color: floralwhite;
-    font-family: "Yu Gothic Medium"
+    font-family: Centaur, sans-serif;
 }
 
 .grid {
@@ -30,7 +30,6 @@ body {
 .item img, .item1 img {
     width: 33%;
     height: 0;
-    /*padding-top: calc(100% / (3 / 4));*/
     object-fit: cover;
     margin-bottom: 10px;
     border-radius: 10px;
@@ -38,6 +37,9 @@ body {
 }
 .item1 p {
    padding-right: 350px;
+   overflow-wrap: break-word;
+   width: 750px;
+   font-size: 25px;
 }
 
 .item img:only-child, .item1 img:only-child{
@@ -49,10 +51,20 @@ body {
     display: none;
 }
 
+.default-desc {
+    font-size: 22px;
+    font-weight: bold;
+    overflow-wrap: break-word;
+    width: 100%;
+}
+
 .item .description, .item1 .description {
     margin-bottom: 10px;
     font-size: 18px;
     font-weight: bold;
+    text-align: center;
+    overflow-wrap: break-word;
+    width: 550px;
 }
 
 .item .details, .item1 .details {
@@ -66,7 +78,7 @@ body {
 
 .item .details p, .item1 .details p {
     margin: 5px;
-    font-size: 14px;
+    font-size: 22px;
 }
 
 .item .price, .item1 .price {
@@ -160,6 +172,7 @@ ul {
 
 li {
     float: left;
+    font-size: 23px;
 }
 
 .li-text {
@@ -287,14 +300,14 @@ li a:hover:not(.active) {
 .title {
     font-size: 35px;
     text-align: center;
-    letter-spacing: -2px;
+    font-family: Centaur, sans-serif;
 }
 
 .main-table {
-    width: 40%;
+    width: 60%;
     margin-left: 20%;
-    margin-right: 40%;
-    font-size: 18px;
+    margin-right: 20%;
+    font-size: 23px;
     text-align: center;
     background-color: white;
     letter-spacing: 0.5px;

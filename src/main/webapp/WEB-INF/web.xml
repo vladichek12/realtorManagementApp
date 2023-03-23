@@ -49,6 +49,14 @@
         <servlet-name>adminOrderPageServlet</servlet-name>
         <url-pattern>/admin/orders</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>adminRoomsPageServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.AdminRoomPageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminRoomsPageServlet</servlet-name>
+        <url-pattern>/admin/rooms</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>adminUpdateOrderServlet</servlet-name>
@@ -184,6 +192,14 @@
     <servlet-mapping>
         <servlet-name>connectUsersServlet</servlet-name>
         <url-pattern>/connect/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>roomPageServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.RoomPageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>roomPageServlet</servlet-name>
+        <url-pattern>/room/*</url-pattern>
     </servlet-mapping>
 
 

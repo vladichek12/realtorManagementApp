@@ -2,12 +2,14 @@ package realtorManagementApp.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import realtorManagementApp._enum.Roles;
 import realtorManagementApp.dao.UserDao;
 import realtorManagementApp.entities.User;
 import realtorManagementApp.exceptions.UserNotFoundException;
 import realtorManagementApp.session.SessionHandler;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {

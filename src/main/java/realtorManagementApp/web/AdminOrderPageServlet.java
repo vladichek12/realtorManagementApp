@@ -45,6 +45,10 @@ public class AdminOrderPageServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("userId"));
         Room order = new Room(roomService.findById(id));
         roomService.delete(order);
-        response.sendRedirect(String.format("%s/admin/orders", request.getContextPath()));
+        if(!request.getHeader("Referer").contains("rooms")) {
+            response.sendRedirect(String.format("%s/admin/orders", request.getContextPath()));
+        } else {
+            response.sendRedirect(String.format("%s/admin/rooms", request.getContextPath()));
+        }
     }
 }
