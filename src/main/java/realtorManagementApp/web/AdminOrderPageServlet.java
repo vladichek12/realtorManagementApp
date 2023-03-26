@@ -1,8 +1,11 @@
 package realtorManagementApp.web;
 
 import realtorManagementApp.entities.Room;
+import realtorManagementApp.entities.RoomImage;
+import realtorManagementApp.services.RoomImageService;
 import realtorManagementApp.services.RoomService;
 import realtorManagementApp.services.UserService;
+import realtorManagementApp.services.impl.RoomImageServiceImpl;
 import realtorManagementApp.services.impl.RoomServiceImpl;
 import realtorManagementApp.services.impl.UserServiceImpl;
 
@@ -19,12 +22,14 @@ public class AdminOrderPageServlet extends HttpServlet {
     private UserService userService;
     //private List<Order> orders;
     private RoomService roomService;
+    private RoomImageService roomImageService;
     private List<Room> rooms;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         //orderService = OrderServiceImpl.getInstance();
+        roomImageService = RoomImageServiceImpl.getInstance();
         roomService = RoomServiceImpl.getInstance();
         userService = UserServiceImpl.getInstance();
     }
@@ -44,6 +49,10 @@ public class AdminOrderPageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("userId"));
         Room order = new Room(roomService.findById(id));
+        List<RoomImage> oldImages= roomService.findById(id).getRoomImage();
+        for(RoomImage image : oldImages){
+            roomImageService.delete(image);
+        }
         roomService.delete(order);
         if(!request.getHeader("Referer").contains("rooms")) {
             response.sendRedirect(String.format("%s/admin/orders", request.getContextPath()));

@@ -1,6 +1,5 @@
 package realtorManagementApp.web;
 
-import jakarta.servlet.annotation.WebServlet;
 import realtorManagementApp.entities.Room;
 import realtorManagementApp.services.RoomService;
 import realtorManagementApp.services.impl.RoomServiceImpl;
@@ -11,14 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
-
-public class CatalogServlet extends HttpServlet {
-
+public class RoomDetailsServlet extends HttpServlet {
     private RoomService roomService;
-
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -28,8 +22,10 @@ public class CatalogServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Room> roomList = roomService.findAll().stream().limit(8).collect(Collectors.toList());
-        request.setAttribute("rooms", roomList);
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        String roomId = request.getParameter("id");
+        Room room = roomService.findById(Integer.valueOf(roomId));
+        request.setAttribute("room", room);
+        request.getRequestDispatcher("/WEB-INF/pages/roomDetails.jsp").forward(request, response);
     }
 }
+

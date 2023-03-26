@@ -1,121 +1,53 @@
 
 body {
-    background-color: floralwhite;
+    background-color: darkslateblue;
     font-family: Centaur, sans-serif;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: 1fr;
-    column-gap: 0;
-    row-gap: 7%;
-    gap: 2%;
-    padding: 3% 10%;
-    margin-bottom: 3%;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    margin-left: 3%;
+    margin-right: 3%;
+    color: white;
+    font-family: 'Arial', sans-serif;
 }
 
-.item, .item1 {
+.item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    color: darkslateblue;
     background-color: #fff;
-    border: black 3px solid;
-    border-radius: 3%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 10px;
-    position: relative;
 }
 
-.item img, .item1 img {
-    width: 33%;
-    height: 0;
-    object-fit: cover;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    margin-left: 1%;
-}
-.item1 p {
-   padding-right: 350px;
-   overflow-wrap: break-word;
-   width: 750px;
-   font-size: 25px;
+.image {
+    height: 80%;
+    overflow: hidden;
 }
 
-.item img:only-child, .item1 img:only-child{
-    min-width: 72%;
-    min-height: 96%;
-}
-
-.item img:nth-child(n+4), .item1 ing:nth-child(n+4) {
-    display: none;
-}
-
-.default-desc {
-    font-size: 22px;
-    font-weight: bold;
-    overflow-wrap: break-word;
+.image img {
+    height: 100%;
     width: 100%;
+    object-fit: cover;
 }
 
-.item .description, .item1 .description {
-    margin-bottom: 10px;
-    font-size: 18px;
-    font-weight: bold;
+.description {
     text-align: center;
-    overflow-wrap: break-word;
-    width: 550px;
 }
 
-.item .details, .item1 .details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-.item .details p, .item1 .details p {
-    margin: 5px;
-    font-size: 22px;
-}
-
-.item .price, .item1 .price {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
+.price {
+    padding: 10px;
     font-weight: bold;
 }
 
-.item:hover, .item1:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
-}
 
-.item img, .item1 img {
-    width: 28%;
-    height: auto;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    margin-left: 1%;
-}
 
-@media (min-width: 768px) {
-    .item img, .item1 img {
-        width: 23%;
-    }
-}
 
-@media (min-width: 1024px) {
-    .item img, .item1 img {
-        width: 18%;
-    }
-    .item img:nth-child(n+4), .item1 img:nth-child(n+4) {
-        display: inline-block;
-    }
-}
 
 .custom-file-input {
     position: relative;
@@ -136,12 +68,12 @@ body {
 .custom-file-input label {
     display: inline-block;
     background-color: white;
-    color: black;
+    color: darkslateblue;
     padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: black 3px solid;
+    border: darkslateblue 3px solid;
     margin: 0 140% auto; /* заменяем margin-left на margin: 0 auto */
     position: relative;
     z-index: 1;
@@ -150,7 +82,7 @@ body {
 }
 
 .custom-file-input label:hover {
-    background-color: black;
+    background-color: darkslateblue;
     color: white;
 }
 
@@ -164,15 +96,32 @@ body {
 
 ul {
     list-style-type: none;
-    margin: 0;
     padding: 0;
+    margin: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: darkslateblue;
+    color: white;
 }
 
 li {
     float: left;
     font-size: 23px;
+    color: white;
+}
+
+.navigator{
+    margin-top: -2%;
+    margin-left: -0.8%;
+    padding-top: 1%;
+}
+
+.navigator li{
+    width: 20%;
+}
+
+.navigator li a:hover{
+    background-color: darkslateblue;
+    color: white;
 }
 
 .li-text {
@@ -194,16 +143,17 @@ li {
     padding-top: 5%;
     padding-left: 29%;
     float: left;
-    color: black;
+    color: darkslateblue;
 }
 
 .filters-ul {
     list-style-type: none;
     padding: 0;
     overflow: hidden;
-    background-color: floralwhite;
+    background-color: darkslateblue;
     margin-left: 26%;
     text-align: center;
+    color: white;
 }
 
 .filters-li {
@@ -212,7 +162,7 @@ li {
     padding-top: 2%;
     padding-left: 7%;
     float: left;
-    color: black;
+    color: white;
 }
 
 .search-ul {
@@ -220,7 +170,7 @@ li {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: floralwhite;
+    background-color: darkslateblue;
 }
 
 .search-li {
@@ -228,7 +178,7 @@ li {
     height: 5%;
     padding-top: 5%;
     float: left;
-    color: black;
+    color: darkslateblue;
     padding-left: 25%;
 }
 
@@ -239,22 +189,23 @@ li {
 .search-button {
     margin-left: -16.6%;
     width: 10%;
-    height: 5%;
-    padding-top: 5%;
+    height: 4.3%;
+    padding-top: 5.15%;
     float: left;
-    color: black;
+    color: darkslateblue;
 }
 
 .search-button > input {
     height: 100%;
-    color: black;
+    color: darkslateblue;
     background-color: white;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Arial', sans-serif;
+    border: white solid 1px;
 }
 
 .search-button > input:hover {
     color: white;
-    background-color: black;
+    background-color: darkslateblue;
 }
 
 .table-li1 {
@@ -278,7 +229,7 @@ li {
 }
 
 input[type="radio"] {
-    accent-color: black;
+    accent-color: #483d8b;
 }
 
 li a {
@@ -287,20 +238,32 @@ li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-}
-
-li a:hover:not(.active) {
-    background-color: #111;
+    margin-top: -5%;
 }
 
 .active {
-    background-color: gray;
+    background-color: white;
+    color: darkslateblue;
+}
+.active a:hover{
+    background-color: white;
+    color: darkslateblue;
 }
 
 .title {
     font-size: 35px;
     text-align: center;
-    font-family: Centaur, sans-serif;
+    font-family: 'Arial', sans-serif;
+    color: darkslateblue;
+    padding-top: 3%;
+}
+
+.user-title {
+    font-size: 35px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    padding-top: 3%;
 }
 
 .main-table {
@@ -317,18 +280,18 @@ li a:hover:not(.active) {
 .form {
     background-color: white;
     width: 30%;
-    margin-top: 20px;
+    margin-top: 4%;
     margin-left: 35%;
     margin-right: 35%;
-    padding-top: 10px;
+    padding-top: 2%;
     padding-bottom: 10px;
-    font-family: 'Montserrat', sans-serif;
-    border: 2px black solid;
+    font-family: 'Arial', sans-serif;
     border-radius: 7%;
+    color: darkslateblue;
 }
 
 input, select {
-    border: 3px solid black;
+    border: 3px solid darkslateblue;
     border-radius: 4px;
 }
 
@@ -356,21 +319,21 @@ p {
     margin-left: 35%;
     font-family: 'Montserrat', sans-serif;
     display: inline-block;
-    color: black;
+    color: darkslateblue;
     background-color: white;
     font-weight: 700;
     text-decoration: none;
     user-select: none;
     padding: .5em 2em;
     outline: none;
-    border: 3px solid black;
+    border: 3px solid darkslateblue;
     border-radius: 1px;
     transition: 0.2s;
     border-radius: 10px;
 }
 
 .submit-button:hover {
-    background-color: black; /* Green */
+    background-color: darkslateblue; /* Green */
     color: white;
 }
 
@@ -378,16 +341,16 @@ p {
     margin-top: 5%;
     width: 40%;
     margin-left: 30%;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Arial', sans-serif;
     display: inline-block;
-    color: black;
+    color: darkslateblue;
     background-color: white;
     font-weight: 700;
     text-decoration: none;
     user-select: none;
     padding: .5em 2em;
     outline: none;
-    border: 3px solid black;
+    border: 3px solid darkslateblue;
     border-radius: 1px;
     transition: 0.2s;
     border-radius: 10px;
@@ -395,30 +358,31 @@ p {
 
 .grid-button {
     margin-top: 5%;
-    width: 100%;
+    width: 50%;
     /*margin-left: 15%;*/
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Arial', sans-serif;
     display: inline-block;
-    color: black;
+    color: darkslateblue;
     background-color: white;
     font-weight: 700;
     text-decoration: none;
     user-select: none;
     padding: .5em 2em;
     outline: none;
-    border: 3px solid black;
+    border: 3px solid darkslateblue;
     border-radius: 1px;
     transition: 0.2s;
     border-radius: 10px;
+    margin-left: 25%;
 }
 
 .grid-button:hover{
-    background-color: black; /* Green */
+    background-color: darkslateblue; /* Green */
     color: white;
 }
 
 .registration-button:hover {
-    background-color: black; /* Green */
+    background-color: darkslateblue; /* Green */
     color: white;
 }
 
@@ -428,14 +392,14 @@ p {
     margin-left: 30%;
     font-family: 'Montserrat', sans-serif;
     display: inline-block;
-    color: black;
+    color: darkslateblue;
     background-color: white;
     font-weight: 700;
     text-decoration: none;
     user-select: none;
     padding: .5em 2em;
     outline: none;
-    border: 3px solid black;
+    border: 3px solid darkslateblue;
     border-radius: 1px;
     transition: 0.2s;
     border-radius: 10px;
@@ -443,7 +407,7 @@ p {
 }
 
 .link-button:hover {
-    background-color: black; /* Green */
+    background-color: darkslateblue; /* Green */
     color: white;
 }
 
@@ -454,20 +418,20 @@ p {
     margin-left: 35%;
     font-family: 'Montserrat', sans-serif;
     display: inline-block;
-    color: black;
+    color: darkslateblue;
     background-color: white;
     font-weight: 700;
     text-decoration: none;
     user-select: none;
     padding: .5em 2em;
     outline: none;
-    border: 3px solid black;
+    border: 3px solid darkslateblue;
     transition: 0.2s;
     border-radius: 10px;
 }
 
 .sign-in-button:hover {
-    background-color: black; /* Green */
+    background-color: darkslateblue; /* Green */
     color: white;
 }
 
@@ -483,7 +447,7 @@ p {
 }
 
 .button:hover {
-    background-color: black; /* Green */
+    background-color: darkslateblue; /* Green */
     color: white;
 }
 
@@ -497,7 +461,7 @@ p {
 
 
 .table-button:hover {
-    background-color: black; /* Green */
+    background-color: darkslateblue; /* Green */
     color: white;
 }
 
@@ -534,4 +498,23 @@ p {
 .table-button-add:hover {
     background-color: lightgreen; /* Green */
     color: white;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: 'Arial', sans-serif;
+}
+
+.container p {
+    margin: 10px 0;
+}
+
+.container img {
+    max-width: 300px;
+    margin: 10px;
 }

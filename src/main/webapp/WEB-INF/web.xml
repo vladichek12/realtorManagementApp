@@ -5,6 +5,10 @@
          version="3.1">
     <display-name>Realtor web-app</display-name>
 
+    <welcome-file-list>
+        <welcome-file>catalogServlet</welcome-file>
+    </welcome-file-list>
+
     <servlet>
         <servlet-name>loginPageServlet</servlet-name>
         <servlet-class>realtorManagementApp.web.LoginPageServlet</servlet-class>
@@ -65,6 +69,15 @@
     <servlet-mapping>
         <servlet-name>adminUpdateOrderServlet</servlet-name>
         <url-pattern>/adminUpdateOrder/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>roomDetailServlet</servlet-name>
+        <servlet-class>realtorManagementApp.web.RoomDetailsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>roomDetailServlet</servlet-name>
+        <url-pattern>/roomDetails/*</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -175,7 +188,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>catalogServlet</servlet-name>
-        <url-pattern>/rooms</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>ordersServlet</servlet-name>

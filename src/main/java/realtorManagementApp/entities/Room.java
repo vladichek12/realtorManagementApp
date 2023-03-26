@@ -1,7 +1,6 @@
 package realtorManagementApp.entities;
 
 import javax.persistence.*;
-import java.lang.reflect.Type;
 import java.util.List;
 
 @Entity
@@ -130,6 +129,8 @@ public class Room {
         this.status = status;
     }
 
+
+
     public Room() {
     }
 
@@ -167,5 +168,12 @@ public class Room {
         this.realtor = room.realtor;
         this.status = room.status;
         this.user = room.user;
+        this.type = room.type;
+        this.roomImages = room.roomImages;
     }
+
+    public RoomImage getFirstImage(){
+        return roomImages.get(0);
+    }
+
 }
