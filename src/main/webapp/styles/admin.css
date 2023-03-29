@@ -12,6 +12,7 @@ body {
     margin-right: 3%;
     color: white;
     font-family: 'Arial', sans-serif;
+    background-image: url("/images/background2.JPG");
 }
 
 .item {
@@ -19,10 +20,9 @@ body {
     flex-direction: column;
     justify-content: space-between;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 2px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     color: darkslateblue;
-    background-color: #fff;
 }
 
 .image {
@@ -38,16 +38,13 @@ body {
 
 .description {
     text-align: center;
+    padding-bottom: 10px;
 }
 
 .price {
     padding: 10px;
     font-weight: bold;
 }
-
-
-
-
 
 .custom-file-input {
     position: relative;
@@ -120,8 +117,8 @@ li {
 }
 
 .navigator li a:hover{
-    background-color: darkslateblue;
-    color: white;
+    background-color: #46b1d0;
+    color: darkslateblue;
 }
 
 .li-text {
@@ -134,7 +131,7 @@ li {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: white;
+    background-color: #46b1d0;
 }
 
 .checkbox-li {
@@ -242,19 +239,19 @@ li a {
 }
 
 .active {
-    background-color: white;
+    background-color: #46b1d0;
     color: darkslateblue;
 }
 .active a:hover{
     background-color: white;
-    color: darkslateblue;
+    color: #46b1d0;
 }
 
 .title {
     font-size: 35px;
     text-align: center;
     font-family: 'Arial', sans-serif;
-    color: darkslateblue;
+    color: white;
     padding-top: 3%;
 }
 
@@ -278,7 +275,7 @@ li a {
 
 
 .form {
-    background-color: white;
+    background-color: #46b1d0;
     width: 30%;
     margin-top: 4%;
     margin-left: 35%;
@@ -287,7 +284,8 @@ li a {
     padding-bottom: 10px;
     font-family: 'Arial', sans-serif;
     border-radius: 7%;
-    color: darkslateblue;
+    color: white;
+    font-weight: bold;
 }
 
 input, select {
@@ -377,7 +375,7 @@ p {
 }
 
 .grid-button:hover{
-    background-color: darkslateblue; /* Green */
+    background-color: #46b1d0; /* Green */
     color: white;
 }
 
@@ -517,4 +515,14 @@ p {
 .container img {
     max-width: 300px;
     margin: 10px;
+}
+.search-div {
+    background-image: url("/images/background2.JPG");
+}
+
+.scale {
+    transition: 1s;
+}
+.scale:hover {
+    transform: scale(1.2); /* Увеличиваем масштаб */
 }

@@ -5,9 +5,9 @@
          version="3.1">
     <display-name>Realtor web-app</display-name>
 
-    <welcome-file-list>
-        <welcome-file>catalogServlet</welcome-file>
-    </welcome-file-list>
+<!--    <welcome-file-list>-->
+<!--        <welcome-file>catalogServlet</welcome-file>-->
+<!--    </welcome-file-list>-->
 
     <servlet>
         <servlet-name>loginPageServlet</servlet-name>
@@ -183,14 +183,6 @@
         <url-pattern>/contacts</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>catalogServlet</servlet-name>
-        <servlet-class>realtorManagementApp.web.CatalogServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>catalogServlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>ordersServlet</servlet-name>
         <servlet-class>realtorManagementApp.web.OrdersServlet</servlet-class>
     </servlet>
@@ -216,6 +208,9 @@
     </servlet-mapping>
 
 
+
+
+
     <filter>
         <filter-name>adminAuthenticationFilter</filter-name>
         <filter-class>realtorManagementApp.web.filter.AdminAuthenticationFilter</filter-class>
@@ -223,6 +218,7 @@
     <filter-mapping>
         <filter-name>adminAuthenticationFilter</filter-name>
         <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/greeting</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>userAuthenticationFilter</filter-name>
@@ -231,6 +227,7 @@
     <filter-mapping>
         <filter-name>userAuthenticationFilter</filter-name>
         <url-pattern>/user/*</url-pattern>
+        <url-pattern>/greeting</url-pattern>
     </filter-mapping>
 
 
