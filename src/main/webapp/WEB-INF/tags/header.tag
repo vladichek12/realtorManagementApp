@@ -7,6 +7,7 @@
     <title>${pageTitle}</title>
     <link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/styles/main.css">
+    <link rel="icon" href="${pageContext.request.contextPath}/images/icon.png"/>
     <style>
         <%@include file="/styles/admin.css"%>
     </style>

@@ -71,14 +71,14 @@
         <url-pattern>/adminUpdateOrder/*</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>roomDetailServlet</servlet-name>
-        <servlet-class>realtorManagementApp.web.RoomDetailsServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>roomDetailServlet</servlet-name>
-        <url-pattern>/roomDetails/*</url-pattern>
-    </servlet-mapping>
+<!--    <servlet>-->
+<!--        <servlet-name>roomDetailServlet</servlet-name>-->
+<!--        <servlet-class>realtorManagementApp.web.RoomDetailsServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>roomDetailServlet</servlet-name>-->
+<!--        <url-pattern>/roomDetails/*</url-pattern>-->
+<!--    </servlet-mapping>-->
 
     <servlet>
         <servlet-name>AdminOrderSearchServlet</servlet-name>
@@ -204,7 +204,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>roomPageServlet</servlet-name>
-        <url-pattern>/room/*</url-pattern>
+        <url-pattern>/roomDetails/*</url-pattern>
     </servlet-mapping>
 
 

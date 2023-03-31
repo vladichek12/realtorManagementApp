@@ -23,7 +23,10 @@ public class RoomPageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("room",roomService.findById(Integer.valueOf(request.getPathInfo().substring(1))));
+        request.setAttribute(
+                "room",
+                roomService.findById(
+                        Integer.parseInt(request.getParameter("id"))));
         request.getRequestDispatcher("/WEB-INF/pages/roomInfo.jsp").forward(request, response);
     }
 }
