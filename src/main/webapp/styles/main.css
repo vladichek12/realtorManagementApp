@@ -107,25 +107,12 @@ a:visited:hover {
     text-decoration: none;
 }
 
-/*.main-welcome{*/
-/*    !*background-color: darkslateblue;*!*/
-/*    !*color: white;*!*/
-/*    !*text-align: center;*!*/
-/*    !*height: 20%;*!*/
-/*    !*margin-left: -5%;*!*/
-/*    !*margin-right: -5%;*!*/
-/*    width: 200px;*/
-/*    height: 100px;*/
-/*    color: white;*/
-/*    background: #6a138c;*/
-/*    border-radius: 100px/50px;*/
-/*}*/
 .main-welcome {
     text-align: center;
     padding-top: 35px;
     font-size: 40px;
     height: 500px;
-    background: url("/images/background2.JPG");
+    /*background-image: url("/images/background2.JPG");*/
     position: center;
     color: darkslateblue;
 }
@@ -200,10 +187,13 @@ a:visited:hover {
     color: white;
     font-family: 'Arial', sans-serif;
     text-align: center;
-    padding: 1%;
-    margin-top: 3%;
-    margin-left: -1%;
-    margin-right: -1%;
+    /*padding: 1%;*/
+    /*margin-top: 3%;*/
+    /*margin-left: -1%;*/
+    /*margin-right: -1%;*/
+    display: grid;
+    grid-template-columns: 360px 360px 360px 360px;
+    grid-gap: 20px;
 }
 
 .button-for-index {
